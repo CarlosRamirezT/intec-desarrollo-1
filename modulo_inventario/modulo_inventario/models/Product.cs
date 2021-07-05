@@ -26,7 +26,7 @@ namespace modulo_inventario.models
         private double _purchase_price;
         private double _available_qty;
         private double _forecasted_qty;
-        private List<Move> _stock_move_lines;
+        private List<MoveLine> _stock_move_lines;
 
         public Product()
         {
@@ -44,7 +44,7 @@ namespace modulo_inventario.models
             this._forecasted_qty = forecasted_qty;
         }
 
-        public Product(int id, string name, string type, string code, double sales_price, double purchase_price, double available_qty, double forecasted_qty, List<Move> stock_move_lines)
+        public Product(int id, string name, string type, string code, double sales_price, double purchase_price, double available_qty, double forecasted_qty, List<MoveLine> stock_move_lines)
         {
             this._id = id;
             this._name = name;
@@ -63,13 +63,46 @@ namespace modulo_inventario.models
         public string Code { get => _code; set => _code = value; }
         public double Sales_price { get => _sales_price; set => _sales_price = value; }
         public double Purchase_price { get => _purchase_price; set => _purchase_price = value; }
+        public double Available_qty {
+            get {
+                double result = 0;
+                MoveLine[] moveLines = MoveLine.Search(this.Id, new string[2] { "receipt", "customer" });
+                foreach(MoveLine line in moveLines)
+                {
+                    if(line.Type == "receipt")
+                    {
+                        result += line.Qty;
+                    }else if(line.Type == "waste" || line.Type == "customer")
+                    {
+                        result -= line.Qty;
+                    }
+                }
+                return result;
+            } 
+            set => _available_qty = value; 
+        }
 
-        // TODO: implementar
-        public double Available_qty { get => _available_qty; set => _available_qty = value; }
-        // TODO: implementar
-        public double Forecasted_qty { get => _forecasted_qty; set => _forecasted_qty = value; }
-        // TODO: implementar
-        public List<Move> Stock_move_lines { get => _stock_move_lines; set => _stock_move_lines = value; }
+        public double Forecasted_qty {
+            get
+            {
+                double result = 0;
+                MoveLine[] moveLines = MoveLine.Search(this.Id, new string[1] { "receipt"}, "waiting");
+                foreach (MoveLine line in moveLines)
+                {
+                    result += line.Qty;
+                }
+                return result;
+            }
+            set => _forecasted_qty = value; 
+        }
+
+        public List<MoveLine> Stock_move_lines {
+            get
+            {
+                return MoveLine.Search(this.Id).ToList();
+            }
+            set => _stock_move_lines = value; 
+        }
 
         public static Product Browse(int id)
         {

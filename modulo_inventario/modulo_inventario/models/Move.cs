@@ -9,7 +9,7 @@ namespace modulo_inventario.models
     class Move : Conection
     {
         private static List<Move> moves_table = new List<Move> { 
-            new Move(1, "Carlos Ramirez", "Santo Domingo", "receipts", Location.Browse()[3], Location.Browse()[1], DateTime.Now, new MoveLine[]{}),
+            new Move(1, "Carlos Ramirez", "Santo Domingo", "receipt", Location.Browse()[3], Location.Browse()[1], DateTime.Now, new MoveLine[]{}),
             new Move(2, "Carlos Ramirez", "Santo Domingo", "internal", Location.Browse()[1], Location.Browse()[0], DateTime.Now, new MoveLine[]{}),
             new Move(3, "Carlos Ramirez", "Santo Domingo", "customer", Location.Browse()[0], Location.Browse()[2], DateTime.Now, new MoveLine[]{}),
         };
@@ -100,7 +100,7 @@ namespace modulo_inventario.models
     class MoveLine : Conection
     {
         private static List<MoveLine> move_line_table = new List<MoveLine> { 
-            new MoveLine(1, Move.Browse()[0], Product.Browse()[0], 2, "receipts", Location.Browse()[3], Location.Browse()[1]),
+            new MoveLine(1, Move.Browse()[0], Product.Browse()[0], 2, "receipt", Location.Browse()[3], Location.Browse()[1]),
             new MoveLine(2, Move.Browse()[1], Product.Browse()[1],5, "internal", Location.Browse()[1], Location.Browse()[0]),
             new MoveLine(3, Move.Browse()[2], Product.Browse()[2],3, "customer", Location.Browse()[0], Location.Browse()[2]),
         };
@@ -112,6 +112,7 @@ namespace modulo_inventario.models
         private string _type;
         private Location _souce_location;
         private Location _destination_location;
+        private string _state;
 
         public MoveLine()
         {
@@ -135,6 +136,7 @@ namespace modulo_inventario.models
         internal Location Souce_location { get => _souce_location; set => _souce_location = value; }
         internal Location Destination_location { get => _destination_location; set => _destination_location = value; }
         internal Product Product { get => _product; set => _product = value; }
+        public string State { get => _state; set => _state = value; }
 
         public static MoveLine Browse(int id)
         {
@@ -166,6 +168,45 @@ namespace modulo_inventario.models
             foreach (MoveLine line in move_line_table)
             {
                 if (line.Product.Name == name || line.Souce_location.Name == name || line.Destination_location.Name == name || line.Type == name)
+                {
+                    result.Add(line);
+                }
+            }
+            return result.ToArray();
+        }
+
+        public static MoveLine[] Search(int product_id, string[] types)
+        {
+            List<MoveLine> result = new List<MoveLine>();
+            foreach (MoveLine line in move_line_table)
+            {
+                if (line.Product.Id == product_id && Array.Exists(types, element => element == line.Type))
+                {
+                    result.Add(line);
+                }
+            }
+            return result.ToArray();
+        }
+
+        public static MoveLine[] Search(int product_id, string[] types, string state)
+        {
+            List<MoveLine> result = new List<MoveLine>();
+            foreach (MoveLine line in move_line_table)
+            {
+                if (line.Product.Id == product_id && Array.Exists(types, element => element == line.Type) && line.State == state)
+                {
+                    result.Add(line);
+                }
+            }
+            return result.ToArray();
+        }
+
+        public static MoveLine[] Search(int product_id)
+        {
+            List<MoveLine> result = new List<MoveLine>();
+            foreach (MoveLine line in move_line_table)
+            {
+                if (line.Product.Id == product_id)
                 {
                     result.Add(line);
                 }
