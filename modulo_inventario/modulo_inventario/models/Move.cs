@@ -214,6 +214,19 @@ namespace modulo_inventario.models
             return result.ToArray();
         }
 
+        public static MoveLine[] Search(Location location)
+        {
+            List<MoveLine> result = new List<MoveLine>();
+            foreach (MoveLine line in move_line_table)
+            {
+                if (line.Souce_location.Id == location.Id || line.Destination_location.Id == location.Id)
+                {
+                    result.Add(line);
+                }
+            }
+            return result.ToArray();
+        }
+
         public override void Unlink()
         {
             move_line_table.Remove(this);

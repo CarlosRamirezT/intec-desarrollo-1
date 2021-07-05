@@ -19,7 +19,6 @@ namespace modulo_inventario.models
         private int _id;
         private string _name;
         private string _type;
-        private string _current_stock;
 
         public Location()
         {
@@ -34,8 +33,25 @@ namespace modulo_inventario.models
 
         public string Name { get => _name; set => _name = value; }
         public string Type { get => _type; set => _type = value; }
-        // TODO: implement
-        public string Current_stock { get => _current_stock; set => _current_stock = value; }
+
+        public double Current_stock {
+            get {
+                MoveLine[] lines = MoveLine.Search(this);
+                double result = 0;
+                foreach(MoveLine line in lines)
+                {
+                    if(line.Destination_location.Id == this.Id)
+                    {
+                        result += line.Qty;
+                    }
+                    else if(line.Souce_location.Id == this.Id)
+                    {
+                        result -= line.Qty;
+                    }
+                }
+                return result;
+            }
+        }
         public int Id { get => _id; set => _id = value; }
 
         public static Location Browse(int id)
