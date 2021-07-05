@@ -1,5 +1,5 @@
 ﻿using System;
-using Npgsql;
+
 
 namespace modulo_inventario.models
 {
@@ -13,7 +13,7 @@ namespace modulo_inventario.models
         // se debe reiniciar en el constructor de cada clase que implemente esta clase abstracta
         protected Conection _connection;
         // variable que representa el comando a ejecutar variendose de la coneccion y el query
-        protected NpgsqlCommand _command;
+        ///protected NpgsqlCommand _command;
 
         // metodos que se deben implementar en cada clase de tipo dao que implemente esta
 
