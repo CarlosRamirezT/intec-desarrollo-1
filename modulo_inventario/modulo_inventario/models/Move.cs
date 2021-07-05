@@ -9,7 +9,9 @@ namespace modulo_inventario.models
     class Move : Conection
     {
         private static List<Move> moves_table = new List<Move> { 
-            new Move(1, "Carlos Ramirez", "Santo Domingo", "customer", Location.browse())
+            new Move(1, "Carlos Ramirez", "Santo Domingo", "receipts", Location.Browse()[3], Location.Browse()[1], DateTime.Now, new MoveLine[]{}),
+            new Move(2, "Carlos Ramirez", "Santo Domingo", "internal", Location.Browse()[1], Location.Browse()[0], DateTime.Now, new MoveLine[]{}),
+            new Move(3, "Carlos Ramirez", "Santo Domingo", "customer", Location.Browse()[0], Location.Browse()[2], DateTime.Now, new MoveLine[]{}),
         };
 
         private int _id;

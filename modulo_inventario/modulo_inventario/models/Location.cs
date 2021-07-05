@@ -13,6 +13,7 @@ namespace modulo_inventario.models
             new Location(1, "Stock Location", "Internal"),
             new Location(2, "Scrap Location", "Waste"),
             new Location(3, "Customer Location", "Customer"),
+            new Location(4, "Supplier Location", "Supplier"),
         };
 
         private int _id;
