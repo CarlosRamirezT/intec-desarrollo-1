@@ -99,44 +99,89 @@ namespace modulo_inventario.models
 
     class MoveLine : Conection
     {
+        private static List<MoveLine> move_line_table = new List<MoveLine> { 
+            new MoveLine(1, Move.Browse()[0], Product.Browse()[0], 2, "receipts", Location.Browse()[3], Location.Browse()[1]),
+            new MoveLine(2, Move.Browse()[1], Product.Browse()[1],5, "internal", Location.Browse()[1], Location.Browse()[0]),
+            new MoveLine(3, Move.Browse()[2], Product.Browse()[2],3, "customer", Location.Browse()[0], Location.Browse()[2]),
+        };
+
         private int _id;
-        private Move _move_id;
+        private Move _move;
+        private Product _product;
         private double _qty;
         private string _type;
+        private Location _souce_location;
+        private Location _destination_location;
+
+        public MoveLine()
+        {
+        }
+
+        public MoveLine(int id, Move move, Product product, double qty, string type, Location souce_location, Location destination_location)
+        {
+            this._id = id;
+            this._move = move;
+            this._product = product;
+            this._qty = qty;
+            this._type = type;
+            this._souce_location = souce_location;
+            this._destination_location = destination_location;
+        }
 
         public int Id { get => _id; set => _id = value; }
         public double Qty { get => _qty; set => _qty = value; }
         public string Type { get => _type; set => _type = value; }
-        internal Move Move_id { get => _move_id; set => _move_id = value; }
+        internal Move Move_id { get => _move; set => _move = value; }
+        internal Location Souce_location { get => _souce_location; set => _souce_location = value; }
+        internal Location Destination_location { get => _destination_location; set => _destination_location = value; }
+        internal Product Product { get => _product; set => _product = value; }
 
-        public static Conection Browse(int Id)
+        public static MoveLine Browse(int id)
         {
-            throw new NotImplementedException();
+            MoveLine result = new MoveLine();
+            foreach (MoveLine line in move_line_table)
+            {
+                if(line.Id == id)
+                {
+                    result = line;
+                    break;
+                }
+            }
+            return result;
         }
 
-        public static Conection[] Browse()
+        public static MoveLine[] Browse()
         {
-            throw new NotImplementedException();
+            return move_line_table.ToArray();
         }
 
         public override void Create()
         {
-            throw new NotImplementedException();
+            move_line_table.Add(this);
         }
 
-        public static Conection[] Search(string domain)
+        public static MoveLine[] Search(string name)
         {
-            throw new NotImplementedException();
+            List<MoveLine> result = new List<MoveLine>();
+            foreach (MoveLine line in move_line_table)
+            {
+                if (line.Product.Name == name || line.Souce_location.Name == name || line.Destination_location.Name == name || line.Type == name)
+                {
+                    result.Add(line);
+                }
+            }
+            return result.ToArray();
         }
 
         public override void Unlink()
         {
-            throw new NotImplementedException();
+            move_line_table.Remove(this);
         }
 
         public override void Write()
         {
-            throw new NotImplementedException();
+            int index = move_line_table.FindIndex(a => a.Id == this.Id);
+            move_line_table[index] = this;
         }
     }
 }
