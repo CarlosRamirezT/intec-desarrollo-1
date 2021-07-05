@@ -25,10 +25,5 @@ namespace modulo_inventario.models
         public abstract void Unlink();
         // este metodo recupera registros especificos de la base de datos
         // y devuelve un DataGrid conteniendo todos los campos y registros
-        public abstract Conection[] Search(string domain);
-        // este metodo recupera todos los registros de la tabla de la base de datos
-        // y devuelve un DataGrid conteniendo todos los campos y registros
-        public abstract Conection Browse(int Id);
-        public abstract Conection[] Browse();
     }
 }

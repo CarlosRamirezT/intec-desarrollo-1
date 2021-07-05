@@ -71,7 +71,7 @@ namespace modulo_inventario.models
         // TODO: implementar
         public List<Move> Stock_move_lines { get => _stock_move_lines; set => _stock_move_lines = value; }
 
-        public override Product Browse(int id)
+        public static Product Browse(int id)
         {
             Product result = new Product();
             foreach(Product product in product_table){
@@ -83,7 +83,7 @@ namespace modulo_inventario.models
             return result;
         }
 
-        public override Product[] Browse()
+        public static Product[] Browse()
         {
             return product_table.ToArray();
         }
@@ -93,7 +93,7 @@ namespace modulo_inventario.models
             product_table.Add(this);
         }
 
-        public override Product[] Search(string name)
+        public static Product[] Search(string name)
         {
             List<Product> result = new List<Product>();
             foreach (Product product in product_table)

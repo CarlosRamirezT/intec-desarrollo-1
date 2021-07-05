@@ -46,7 +46,7 @@ namespace modulo_inventario.models
         internal Location Destination_location { get => _destination_location; set => _destination_location = value; }
         internal MoveLine[] Move_lines { get => _move_lines; set => _move_lines = value; }
 
-        public override Move Browse(int id)
+        public static Move Browse(int id)
         {
             Move result = new Move();
             foreach(Move move in moves_table)
@@ -60,7 +60,7 @@ namespace modulo_inventario.models
             return result;
         }
 
-        public override Move[] Browse()
+        public static Move[] Browse()
         {
             return moves_table.ToArray();
         }
@@ -70,7 +70,7 @@ namespace modulo_inventario.models
             moves_table.Add(this);
         }
 
-        public override Move[] Search(string contact)
+        public static Move[] Search(string contact)
         {
             List<Move> result = new List<Move>();
             foreach(Move move in moves_table)
@@ -107,12 +107,12 @@ namespace modulo_inventario.models
         public string Type { get => _type; set => _type = value; }
         internal Move Move_id { get => _move_id; set => _move_id = value; }
 
-        public override Conection Browse(int Id)
+        public static Conection Browse(int Id)
         {
             throw new NotImplementedException();
         }
 
-        public override Conection[] Browse()
+        public static Conection[] Browse()
         {
             throw new NotImplementedException();
         }
@@ -122,7 +122,7 @@ namespace modulo_inventario.models
             throw new NotImplementedException();
         }
 
-        public override Conection[] Search(string domain)
+        public static Conection[] Search(string domain)
         {
             throw new NotImplementedException();
         }

@@ -37,7 +37,7 @@ namespace modulo_inventario.models
         public string Current_stock { get => _current_stock; set => _current_stock = value; }
         public int Id { get => _id; set => _id = value; }
 
-        public override Location Browse(int id)
+        public static Location Browse(int id)
         {
             Location result = new Location();
             foreach (Location location in locations_table)
@@ -51,7 +51,7 @@ namespace modulo_inventario.models
             return result;
         }
 
-        public override Location[] Browse()
+        public static Location[] Browse()
         {
             return locations_table.ToArray();
         }
@@ -61,7 +61,7 @@ namespace modulo_inventario.models
             locations_table.Add(this);
         }
 
-        public override Location[] Search(string name)
+        public static Location[] Search(string name)
         {
             List<Location> result = new List<Location>();
             foreach (Location location in locations_table)
