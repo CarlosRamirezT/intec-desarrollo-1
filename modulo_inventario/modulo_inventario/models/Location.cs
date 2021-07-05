@@ -9,7 +9,7 @@ namespace modulo_inventario.models
     class Location : Conection
     {
 
-        List<Location> locations_table = new List<Location>() { 
+        private static List<Location> locations_table = new List<Location>() { 
             new Location(1, "Stock Location", "Internal"),
             new Location(2, "Scrap Location", "Waste"),
             new Location(3, "Customer Location", "Customer"),
