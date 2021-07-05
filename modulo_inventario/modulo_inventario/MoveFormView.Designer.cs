@@ -33,6 +33,7 @@ namespace modulo_inventario
             this.buttonExit = new System.Windows.Forms.Button();
             this.buttonCreate = new System.Windows.Forms.Button();
             this.textBoxSearchBar = new System.Windows.Forms.TextBox();
+            this.buttonSearch = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -44,6 +45,7 @@ namespace modulo_inventario
             this.dataGridView1.RowTemplate.Height = 25;
             this.dataGridView1.Size = new System.Drawing.Size(756, 382);
             this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
             // buttonExit
             // 
@@ -63,20 +65,32 @@ namespace modulo_inventario
             this.buttonCreate.TabIndex = 2;
             this.buttonCreate.Text = "Create";
             this.buttonCreate.UseVisualStyleBackColor = true;
+            this.buttonCreate.Click += new System.EventHandler(this.buttonCreate_Click);
             // 
             // textBoxSearchBar
             // 
-            this.textBoxSearchBar.Location = new System.Drawing.Point(111, 12);
+            this.textBoxSearchBar.Location = new System.Drawing.Point(211, 12);
             this.textBoxSearchBar.Name = "textBoxSearchBar";
             this.textBoxSearchBar.Size = new System.Drawing.Size(276, 23);
             this.textBoxSearchBar.TabIndex = 3;
             this.textBoxSearchBar.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // buttonSearch
+            // 
+            this.buttonSearch.Location = new System.Drawing.Point(493, 11);
+            this.buttonSearch.Name = "buttonSearch";
+            this.buttonSearch.Size = new System.Drawing.Size(75, 23);
+            this.buttonSearch.TabIndex = 4;
+            this.buttonSearch.Text = "Search";
+            this.buttonSearch.UseVisualStyleBackColor = true;
+            this.buttonSearch.Click += new System.EventHandler(this.buttonSearch_Click);
             // 
             // MoveFormView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonSearch);
             this.Controls.Add(this.textBoxSearchBar);
             this.Controls.Add(this.buttonCreate);
             this.Controls.Add(this.buttonExit);
@@ -95,5 +109,6 @@ namespace modulo_inventario
         private System.Windows.Forms.Button buttonExit;
         private System.Windows.Forms.Button buttonCreate;
         private System.Windows.Forms.TextBox textBoxSearchBar;
+        private System.Windows.Forms.Button buttonSearch;
     }
 }
