@@ -4,6 +4,18 @@
     <Compile Update="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="MoveFormEditable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MoveFormInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MoveFormView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ProductFormInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="ProductsFormView.cs">
       <SubType>Form</SubType>
     </Compile>
