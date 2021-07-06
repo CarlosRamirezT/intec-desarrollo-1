@@ -18,19 +18,6 @@ namespace modulo_inventario
         public MoveFormInformation()
         {
             InitializeComponent();
-            LoadData();
-        }
-
-        public MoveFormInformation(Moves vData)
-        {
-            InitializeComponent();
-            this.vInformation = vData;
-            LoadData();
-            
-        }
-
-        private void LoadGrid()
-        {
             dataGridView1.Columns.Add("ID", "ID");
             dataGridView1.Columns.Add("Producto", "Producto");
             dataGridView1.Columns.Add("Cantidad", "Cantidad");
@@ -38,6 +25,27 @@ namespace modulo_inventario
             dataGridView1.Columns.Add("Source", "Source");
             dataGridView1.Columns.Add("Destination", "Destination");
             dataGridView1.Columns.Add("State", "State");
+            LoadData();
+        }
+
+        public MoveFormInformation(Moves vData)
+        {
+            InitializeComponent();
+            this.vInformation = vData;
+            dataGridView1.Columns.Add("ID", "ID");
+            dataGridView1.Columns.Add("Producto", "Producto");
+            dataGridView1.Columns.Add("Cantidad", "Cantidad");
+            dataGridView1.Columns.Add("Tipo", "Tipo");
+            dataGridView1.Columns.Add("Source", "Source");
+            dataGridView1.Columns.Add("Destination", "Destination");
+            dataGridView1.Columns.Add("State", "State");
+            LoadData();
+            
+        }
+
+        private void LoadGrid()
+        {
+
             MoveLine[] theData = vInformation.Move_lines;
 
             for (int i = 0; i < theData.Length; i++)

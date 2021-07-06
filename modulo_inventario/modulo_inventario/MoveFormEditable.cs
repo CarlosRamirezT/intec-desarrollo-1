@@ -17,6 +17,14 @@ namespace modulo_inventario
 
         public MoveFormEditable()
         {
+            dataGridView1.Columns.Add("ID", "ID");
+            dataGridView1.Columns.Add("Producto", "Producto");
+            dataGridView1.Columns.Add("Cantidad", "Cantidad");
+            dataGridView1.Columns.Add("Tipo", "Tipo");
+            dataGridView1.Columns.Add("Source", "Source");
+            dataGridView1.Columns.Add("Destination", "Destination");
+            dataGridView1.Columns.Add("State", "State");
+            MoveLine[] theData = vInformation.Move_lines;
             InitializeComponent();
         }
 
@@ -24,6 +32,14 @@ namespace modulo_inventario
         {
             InitializeComponent();
             this.vInformation = vData;
+            dataGridView1.Columns.Add("ID", "ID");
+            dataGridView1.Columns.Add("Producto", "Producto");
+            dataGridView1.Columns.Add("Cantidad", "Cantidad");
+            dataGridView1.Columns.Add("Tipo", "Tipo");
+            dataGridView1.Columns.Add("Source", "Source");
+            dataGridView1.Columns.Add("Destination", "Destination");
+            dataGridView1.Columns.Add("State", "State");
+            MoveLine[] theData = vInformation.Move_lines;
             LoadData();
 
         }
@@ -42,15 +58,7 @@ namespace modulo_inventario
 
         private void LoadGrid()
         {
-            dataGridView1.Columns.Add("ID", "ID");
-            dataGridView1.Columns.Add("Producto", "Producto");
-            dataGridView1.Columns.Add("Cantidad", "Cantidad");
-            dataGridView1.Columns.Add("Tipo", "Tipo");
-            dataGridView1.Columns.Add("Source", "Source");
-            dataGridView1.Columns.Add("Destination", "Destination");
-            dataGridView1.Columns.Add("State", "State");
             MoveLine[] theData = vInformation.Move_lines;
-
             for (int i = 0; i < theData.Length; i++)
             {
                 dataGridView1.Rows.Add(new object[] { theData[i].Id, theData[i].Product, theData[i].Qty, theData[i].Type, theData[i].Souce_location.Name, theData[i].Destination_location.Name, theData[i].State });

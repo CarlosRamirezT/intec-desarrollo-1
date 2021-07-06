@@ -16,6 +16,12 @@ namespace modulo_inventario
         public ProductsListView()
         {
             InitializeComponent();
+            dataGridView1.Columns.Add("Id", "Id");
+            dataGridView1.Columns.Add("name", "name");
+            dataGridView1.Columns.Add("type", "type");
+            dataGridView1.Columns.Add("code", "code");
+            dataGridView1.Columns.Add("Sales_Price", "Sales_Price");
+            dataGridView1.Columns.Add("purchase_price;", "purchase_price;");
             llenargrid(Product.Browse());
         }
 
@@ -38,12 +44,6 @@ namespace modulo_inventario
         }
         private void llenargrid(Product[] vy )
         {
-            dataGridView1.Columns.Add("Id", "Id");
-            dataGridView1.Columns.Add("name", "name");
-            dataGridView1.Columns.Add("type", "type");
-            dataGridView1.Columns.Add("code", "code");
-            dataGridView1.Columns.Add("Sales_Price", "Sales_Price");
-            dataGridView1.Columns.Add("purchase_price;", "purchase_price;");
 
             for (int i = 0; i < vy.Length; i++)
             {

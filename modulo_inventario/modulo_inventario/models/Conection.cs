@@ -1,4 +1,5 @@
 ﻿using System;
+using Npgsql;
 
 
 namespace modulo_inventario.models

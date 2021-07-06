@@ -16,17 +16,18 @@ namespace modulo_inventario
         public MoveFormView()
         {
             InitializeComponent();
-            LoadGrid(Moves.Browse());
-        }
-
-        private void LoadGrid(Moves[] moves)
-        {
             dataGridView1.Columns.Add("ID", "ID");
             dataGridView1.Columns.Add("Contacto", "Contacto");
             dataGridView1.Columns.Add("Fecha", "Fecha");
             dataGridView1.Columns.Add("Source", "Source");
             dataGridView1.Columns.Add("Destination", "Destination");
             dataGridView1.Columns.Add("Tipo", "Tipo");
+            LoadGrid(Moves.Browse());
+        }
+
+        private void LoadGrid(Moves[] moves)
+        {
+
 
             for (int i = 0; i < moves.Length; i++)
             {

@@ -16,14 +16,14 @@ namespace modulo_inventario
         public LocationListView()
         {
             InitializeComponent();
+            dataGridView1.Columns.Add("ID", "ID");
+            dataGridView1.Columns.Add("Name", "Name");
+            dataGridView1.Columns.Add("Type", "Type");
             loadGrid();
         }
 
         private void loadGrid()
         {
-            dataGridView1.Columns.Add("ID", "ID");
-            dataGridView1.Columns.Add("Name", "Name");
-            dataGridView1.Columns.Add("Type", "Type");
             Locations[] locations = Locations.Browse();
             for (int i = 0; i < locations.Length; i++)
             {
