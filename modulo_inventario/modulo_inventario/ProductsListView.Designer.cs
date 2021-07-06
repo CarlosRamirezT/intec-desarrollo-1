@@ -41,10 +41,10 @@ namespace modulo_inventario
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(1, 125);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 124);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(732, 280);
+            this.dataGridView1.Size = new System.Drawing.Size(776, 314);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -80,7 +80,7 @@ namespace modulo_inventario
             // 
             // btbuscar
             // 
-            this.btbuscar.Location = new System.Drawing.Point(286, 83);
+            this.btbuscar.Location = new System.Drawing.Point(450, 35);
             this.btbuscar.Name = "btbuscar";
             this.btbuscar.Size = new System.Drawing.Size(75, 23);
             this.btbuscar.TabIndex = 5;

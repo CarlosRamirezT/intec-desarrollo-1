@@ -18,39 +18,27 @@ namespace modulo_inventario
         public ProductFormInformation()
         {
             InitializeComponent();
+            loadData();
         }
+
         public ProductFormInformation(Product product)
         {
             InitializeComponent();
             this.product = product;
-
+            loadData();
         }
-        private void loiddata()
+        private void loadData()
         {
+            labelId.Text = product.Id.ToString();
             labelname.Text = product.Name;
-            labelidcontenido.Text = product.Id.ToString();
             labelcodigo.Text = product.Code;
-            labelcantidad.Text = product.Available_qty.ToString();
+            labelcantidaddisponible.Text = product.Available_qty.ToString();
+            labelcantidadesperada.Text = product.Forecasted_qty.ToString();
             labelprecioventa.Text = product.Sales_price.ToString();
             labelpreciocompra.Text = product.Purchase_price.ToString();
-
+            labeltipo.Text = product.Type;
         }
 
-
-        private void ProductFormInformation_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void button1_Click(object sender, EventArgs e)
         {

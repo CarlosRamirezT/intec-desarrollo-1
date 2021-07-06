@@ -37,13 +37,18 @@ namespace modulo_inventario
             this.button1 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.vFecha = new System.Windows.Forms.Label();
-            this.txtcantidad = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
-            this.txtcodigo = new System.Windows.Forms.TextBox();
-            this.txttipoproduct = new System.Windows.Forms.TextBox();
-            this.txtprecio = new System.Windows.Forms.TextBox();
-            this.textdes5 = new System.Windows.Forms.TextBox();
+            this.textboxCodigo = new System.Windows.Forms.TextBox();
+            this.textboxType = new System.Windows.Forms.TextBox();
+            this.textboxPurchasePrice = new System.Windows.Forms.TextBox();
+            this.textboxName = new System.Windows.Forms.TextBox();
             this.btsave = new System.Windows.Forms.Button();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.textBoxSalePrice = new System.Windows.Forms.TextBox();
+            this.labelCantidadAvailable = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.labelCantidadForecasted = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -58,13 +63,14 @@ namespace modulo_inventario
             // 
             // label2
             // 
+            this.label2.AccessibleRole = System.Windows.Forms.AccessibleRole.Equation;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(487, 319);
+            this.label2.Location = new System.Drawing.Point(418, 261);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(55, 19);
+            this.label2.Size = new System.Drawing.Size(112, 19);
             this.label2.TabIndex = 1;
-            this.label2.Text = "Precio:";
+            this.label2.Text = "Precio Compra:";
             // 
             // label3
             // 
@@ -79,7 +85,7 @@ namespace modulo_inventario
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(64, 75);
+            this.label4.Location = new System.Drawing.Point(64, 187);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(229, 27);
@@ -110,12 +116,12 @@ namespace modulo_inventario
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(468, 265);
+            this.label6.Location = new System.Drawing.Point(445, 390);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(74, 19);
+            this.label6.Size = new System.Drawing.Size(146, 19);
             this.label6.TabIndex = 6;
-            this.label6.Text = "Cantidad:";
+            this.label6.Text = "Cantidad Disponible:";
             // 
             // vFecha
             // 
@@ -125,15 +131,6 @@ namespace modulo_inventario
             this.vFecha.Name = "vFecha";
             this.vFecha.Size = new System.Drawing.Size(0, 19);
             this.vFecha.TabIndex = 8;
-            // 
-            // txtcantidad
-            // 
-            this.txtcantidad.Location = new System.Drawing.Point(550, 265);
-            this.txtcantidad.Margin = new System.Windows.Forms.Padding(4);
-            this.txtcantidad.Name = "txtcantidad";
-            this.txtcantidad.Size = new System.Drawing.Size(127, 26);
-            this.txtcantidad.TabIndex = 9;
-            this.txtcantidad.TextChanged += new System.EventHandler(this.txtcantidad_TextChanged);
             // 
             // button2
             // 
@@ -146,41 +143,41 @@ namespace modulo_inventario
             this.button2.Text = "Aceptar";
             this.button2.UseVisualStyleBackColor = false;
             // 
-            // txtcodigo
+            // textboxCodigo
             // 
-            this.txtcodigo.Location = new System.Drawing.Point(202, 315);
-            this.txtcodigo.Margin = new System.Windows.Forms.Padding(4);
-            this.txtcodigo.Name = "txtcodigo";
-            this.txtcodigo.Size = new System.Drawing.Size(127, 26);
-            this.txtcodigo.TabIndex = 12;
+            this.textboxCodigo.Location = new System.Drawing.Point(202, 315);
+            this.textboxCodigo.Margin = new System.Windows.Forms.Padding(4);
+            this.textboxCodigo.Name = "textboxCodigo";
+            this.textboxCodigo.Size = new System.Drawing.Size(127, 26);
+            this.textboxCodigo.TabIndex = 12;
             // 
-            // txttipoproduct
+            // textboxType
             // 
-            this.txttipoproduct.Location = new System.Drawing.Point(202, 261);
-            this.txttipoproduct.Margin = new System.Windows.Forms.Padding(4);
-            this.txttipoproduct.Name = "txttipoproduct";
-            this.txttipoproduct.Size = new System.Drawing.Size(127, 26);
-            this.txttipoproduct.TabIndex = 13;
+            this.textboxType.Location = new System.Drawing.Point(202, 261);
+            this.textboxType.Margin = new System.Windows.Forms.Padding(4);
+            this.textboxType.Name = "textboxType";
+            this.textboxType.Size = new System.Drawing.Size(127, 26);
+            this.textboxType.TabIndex = 13;
             // 
-            // txtprecio
+            // textboxPurchasePrice
             // 
-            this.txtprecio.Location = new System.Drawing.Point(550, 319);
-            this.txtprecio.Margin = new System.Windows.Forms.Padding(4);
-            this.txtprecio.Name = "txtprecio";
-            this.txtprecio.Size = new System.Drawing.Size(134, 26);
-            this.txtprecio.TabIndex = 14;
+            this.textboxPurchasePrice.Location = new System.Drawing.Point(538, 259);
+            this.textboxPurchasePrice.Margin = new System.Windows.Forms.Padding(4);
+            this.textboxPurchasePrice.Name = "textboxPurchasePrice";
+            this.textboxPurchasePrice.Size = new System.Drawing.Size(134, 26);
+            this.textboxPurchasePrice.TabIndex = 14;
             // 
-            // textdes5
+            // textboxName
             // 
-            this.textdes5.Location = new System.Drawing.Point(366, 82);
-            this.textdes5.Margin = new System.Windows.Forms.Padding(4);
-            this.textdes5.Name = "textdes5";
-            this.textdes5.Size = new System.Drawing.Size(127, 26);
-            this.textdes5.TabIndex = 0;
+            this.textboxName.Location = new System.Drawing.Point(316, 190);
+            this.textboxName.Margin = new System.Windows.Forms.Padding(4);
+            this.textboxName.Name = "textboxName";
+            this.textboxName.Size = new System.Drawing.Size(204, 26);
+            this.textboxName.TabIndex = 0;
             // 
             // btsave
             // 
-            this.btsave.Location = new System.Drawing.Point(498, 433);
+            this.btsave.Location = new System.Drawing.Point(26, 31);
             this.btsave.Name = "btsave";
             this.btsave.Size = new System.Drawing.Size(75, 23);
             this.btsave.TabIndex = 15;
@@ -188,18 +185,76 @@ namespace modulo_inventario
             this.btsave.UseVisualStyleBackColor = true;
             this.btsave.Click += new System.EventHandler(this.btsave_Click);
             // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(598, 31);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(86, 23);
+            this.button3.TabIndex = 16;
+            this.button3.Text = "Cancelar";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(435, 319);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(95, 19);
+            this.label8.TabIndex = 19;
+            this.label8.Text = "Precio Venta:";
+            // 
+            // textBoxSalePrice
+            // 
+            this.textBoxSalePrice.Location = new System.Drawing.Point(538, 319);
+            this.textBoxSalePrice.Name = "textBoxSalePrice";
+            this.textBoxSalePrice.Size = new System.Drawing.Size(134, 26);
+            this.textBoxSalePrice.TabIndex = 20;
+            // 
+            // labelCantidadAvailable
+            // 
+            this.labelCantidadAvailable.AutoSize = true;
+            this.labelCantidadAvailable.Location = new System.Drawing.Point(598, 390);
+            this.labelCantidadAvailable.Name = "labelCantidadAvailable";
+            this.labelCantidadAvailable.Size = new System.Drawing.Size(48, 19);
+            this.labelCantidadAvailable.TabIndex = 21;
+            this.labelCantidadAvailable.Text = "label7";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(445, 418);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(139, 19);
+            this.label9.TabIndex = 22;
+            this.label9.Text = "Cantidad Esperada:";
+            // 
+            // labelCantidadForecasted
+            // 
+            this.labelCantidadForecasted.AutoSize = true;
+            this.labelCantidadForecasted.Location = new System.Drawing.Point(598, 421);
+            this.labelCantidadForecasted.Name = "labelCantidadForecasted";
+            this.labelCantidadForecasted.Size = new System.Drawing.Size(48, 19);
+            this.labelCantidadForecasted.TabIndex = 23;
+            this.labelCantidadForecasted.Text = "label7";
+            // 
             // vatras
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(725, 490);
+            this.Controls.Add(this.labelCantidadForecasted);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.labelCantidadAvailable);
+            this.Controls.Add(this.textBoxSalePrice);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.button3);
             this.Controls.Add(this.btsave);
-            this.Controls.Add(this.textdes5);
-            this.Controls.Add(this.txtprecio);
-            this.Controls.Add(this.txttipoproduct);
-            this.Controls.Add(this.txtcodigo);
+            this.Controls.Add(this.textboxName);
+            this.Controls.Add(this.textboxPurchasePrice);
+            this.Controls.Add(this.textboxType);
+            this.Controls.Add(this.textboxCodigo);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.txtcantidad);
             this.Controls.Add(this.vFecha);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.button1);
@@ -211,7 +266,6 @@ namespace modulo_inventario
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.Name = "vatras";
             this.Text = "ProductsFormView";
-            this.Load += new System.EventHandler(this.vatras_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -227,12 +281,17 @@ namespace modulo_inventario
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label vFecha;
-        private System.Windows.Forms.TextBox txtcantidad;
         private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox txtcodigo;
-        private System.Windows.Forms.TextBox txttipoproduct;
-        private System.Windows.Forms.TextBox txtprecio;
-        private System.Windows.Forms.TextBox textdes5;
+        private System.Windows.Forms.TextBox textboxCodigo;
+        private System.Windows.Forms.TextBox textboxType;
+        private System.Windows.Forms.TextBox textboxPurchasePrice;
+        private System.Windows.Forms.TextBox textboxName;
         private System.Windows.Forms.Button btsave;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.TextBox textBoxSalePrice;
+        private System.Windows.Forms.Label labelCantidadAvailable;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label labelCantidadForecasted;
     }
 }

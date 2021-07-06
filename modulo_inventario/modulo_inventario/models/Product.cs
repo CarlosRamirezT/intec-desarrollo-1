@@ -32,6 +32,15 @@ namespace modulo_inventario.models
         {
         }
 
+        public Product(string name, string type, string code, double sales_price, double purchase_price)
+        {
+            this._name = name;
+            this._type = type;
+            this._code = code;
+            this._sales_price = sales_price;
+            this._purchase_price = purchase_price;
+        }
+
         public Product(int id, string name, string type, string code, double sales_price, double purchase_price, double available_qty, double forecasted_qty)
         {
             this._id = id;
