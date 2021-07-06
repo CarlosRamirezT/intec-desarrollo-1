@@ -16,7 +16,7 @@ namespace modulo_inventario
         public ProductsListView()
         {
             InitializeComponent();
-            llenargrid();
+            llenargrid(Product.Browse());
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -26,11 +26,17 @@ namespace modulo_inventario
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-
-        }
-        private void llenargrid()
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = this.dataGridView1.Rows[e.RowIndex];
+                int id = int.Parse(row.Cells["ID"].Value.ToString());
+                Product product= Product.Browse(id);
+                ProductFormInformation vCreate = new ProductFormInformation(product);
+                vCreate.Show();
+                this.Visible = false;
+            }
+        private void llenargrid(Product[] vy )
         {
-            Product[] vy = Product.Browse();
             dataGridView1.Columns.Add("Id", "Id");
             dataGridView1.Columns.Add("name", "name");
             dataGridView1.Columns.Add("type", "type");
@@ -47,29 +53,22 @@ namespace modulo_inventario
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form1 vx = new Form1();
+            vatras vx = new vatras();
             vx.Show();
             this.Visible = false;
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label2_Click(object sender, EventArgs e)
-        {
-            
-        }
-
         private void button1_Click_1(object sender, EventArgs e)
         {
-            Application.Exit();
+            Form1 vx = new Form1();
+            vx.Show();
+            this.Visible = false;
         }
-
-        private void button3_Click(object sender, EventArgs e)
+        private void btbuscar_Click(object sender, EventArgs e)
         {
-       
+            string vbuscar = txtnom.Text.ToString();
+            Product[] vpy = Product.Search(vbuscar);
+            llenargrid(vpy);
         }
     }
 }
