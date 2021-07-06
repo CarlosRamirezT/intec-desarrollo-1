@@ -31,6 +31,12 @@ namespace modulo_inventario.models
             this._type = type;
         }
 
+        public Locations(string name, string type)
+        {
+            this._name = name;
+            this._type = type;
+        }
+
         public string Name { get => _name; set => _name = value; }
         public string Type { get => _type; set => _type = value; }
 
