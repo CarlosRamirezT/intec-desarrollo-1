@@ -13,10 +13,11 @@ namespace modulo_inventario
 {
     public partial class LocationFormEditable : Form
     {
-        private Locations location = new Locations();
+        private Locations location;
         public LocationFormEditable()
         {
             InitializeComponent();
+            this.location = new Locations();
         }
         public LocationFormEditable(Locations location)
         {

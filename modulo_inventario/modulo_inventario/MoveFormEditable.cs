@@ -24,7 +24,7 @@ namespace modulo_inventario
             dataGridView1.Columns.Add("Source", "Source");
             dataGridView1.Columns.Add("Destination", "Destination");
             dataGridView1.Columns.Add("State", "State");
-            MoveLine[] theData = vInformation.Move_lines;
+            vInformation = new Moves();
             InitializeComponent();
         }
 
@@ -67,7 +67,19 @@ namespace modulo_inventario
 
         private void button2_Click(object sender, EventArgs e)
         {
-
+            if(vInformation.Id >= 0)
+            {
+                MoveFormInformation moveFormInformation = new MoveFormInformation();
+                moveFormInformation.Show();
+                this.Visible = false;
+            }
+            else
+            {
+                MoveFormView moveFormView = new MoveFormView();
+                moveFormView.Show();
+                this.Visible = false;
+            }
+            
         }
 
         private void label2_Click(object sender, EventArgs e)

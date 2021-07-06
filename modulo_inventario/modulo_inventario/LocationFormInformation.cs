@@ -17,6 +17,7 @@ namespace modulo_inventario
         public LocationFormInformation()
         {
             InitializeComponent();
+            location = new Locations();
         }
         public LocationFormInformation(Locations location)
         {
