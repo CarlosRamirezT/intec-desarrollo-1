@@ -18,6 +18,11 @@ namespace modulo_inventario
         {
             InitializeComponent();
         }
+
+        public vatras(Product product)
+        {
+            InitializeComponent();
+        }
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 

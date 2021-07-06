@@ -13,7 +13,7 @@ namespace modulo_inventario
 {
     public partial class MoveFormInformation : Form
     {
-        private Move vInformation;
+        private Moves vInformation;
 
         public MoveFormInformation()
         {
@@ -21,7 +21,7 @@ namespace modulo_inventario
             LoadData();
         }
 
-        public MoveFormInformation(Move vData)
+        public MoveFormInformation(Moves vData)
         {
             InitializeComponent();
             this.vInformation = vData;

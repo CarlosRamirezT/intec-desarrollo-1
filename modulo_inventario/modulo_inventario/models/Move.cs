@@ -100,9 +100,9 @@ namespace modulo_inventario.models
     public class MoveLine : Conection
     {
         private static List<MoveLine> move_line_table = new List<MoveLine> { 
-            new MoveLine(1, Moves.Browse()[0], Product.Browse()[0], 2, "receipt", Location.Browse()[3], Location.Browse()[1]),
-            new MoveLine(2, Moves.Browse()[1], Product.Browse()[1],5, "internal", Location.Browse()[1], Location.Browse()[0]),
-            new MoveLine(3, Moves.Browse()[2], Product.Browse()[2],3, "customer", Location.Browse()[0], Location.Browse()[2]),
+            new MoveLine(1, Moves.Browse()[0], Product.Browse()[0], 2, "receipt", Locations.Browse()[3], Locations.Browse()[1]),
+            new MoveLine(2, Moves.Browse()[1], Product.Browse()[1],5, "internal", Locations.Browse()[1], Locations.Browse()[0]),
+            new MoveLine(3, Moves.Browse()[2], Product.Browse()[2],3, "customer", Locations.Browse()[0], Locations.Browse()[2]),
         };
 
         private int _id;
@@ -118,7 +118,7 @@ namespace modulo_inventario.models
         {
         }
 
-        public MoveLine(int id, Moves move, Product product, double qty, string type, Location souce_location, Location destination_location)
+        public MoveLine(int id, Moves move, Product product, double qty, string type, Locations souce_location, Locations destination_location)
         {
             this._id = id;
             this._move = move;
