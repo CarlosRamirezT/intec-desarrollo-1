@@ -43,7 +43,7 @@ namespace modulo_inventario
             this.txttipoproduct = new System.Windows.Forms.TextBox();
             this.txtprecio = new System.Windows.Forms.TextBox();
             this.textdes5 = new System.Windows.Forms.TextBox();
-            this.button3 = new System.Windows.Forms.Button();
+            this.btsave = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -85,7 +85,6 @@ namespace modulo_inventario
             this.label4.Size = new System.Drawing.Size(229, 27);
             this.label4.TabIndex = 3;
             this.label4.Text = "Nombre del Producto:";
-            this.label4.Click += new System.EventHandler(this.label4_Click);
             // 
             // label5
             // 
@@ -101,13 +100,12 @@ namespace modulo_inventario
             // 
             this.button1.BackColor = System.Drawing.SystemColors.Highlight;
             this.button1.Location = new System.Drawing.Point(188, 576);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(96, 29);
             this.button1.TabIndex = 5;
             this.button1.Text = "Atras";
             this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // label6
             // 
@@ -131,7 +129,7 @@ namespace modulo_inventario
             // txtcantidad
             // 
             this.txtcantidad.Location = new System.Drawing.Point(550, 265);
-            this.txtcantidad.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtcantidad.Margin = new System.Windows.Forms.Padding(4);
             this.txtcantidad.Name = "txtcantidad";
             this.txtcantidad.Size = new System.Drawing.Size(127, 26);
             this.txtcantidad.TabIndex = 9;
@@ -141,36 +139,33 @@ namespace modulo_inventario
             // 
             this.button2.BackColor = System.Drawing.SystemColors.Highlight;
             this.button2.Location = new System.Drawing.Point(631, 576);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(96, 29);
             this.button2.TabIndex = 10;
             this.button2.Text = "Aceptar";
             this.button2.UseVisualStyleBackColor = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // txtcodigo
             // 
             this.txtcodigo.Location = new System.Drawing.Point(202, 315);
-            this.txtcodigo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtcodigo.Margin = new System.Windows.Forms.Padding(4);
             this.txtcodigo.Name = "txtcodigo";
             this.txtcodigo.Size = new System.Drawing.Size(127, 26);
             this.txtcodigo.TabIndex = 12;
-            this.txtcodigo.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // txttipoproduct
             // 
             this.txttipoproduct.Location = new System.Drawing.Point(202, 261);
-            this.txttipoproduct.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txttipoproduct.Margin = new System.Windows.Forms.Padding(4);
             this.txttipoproduct.Name = "txttipoproduct";
             this.txttipoproduct.Size = new System.Drawing.Size(127, 26);
             this.txttipoproduct.TabIndex = 13;
-            this.txttipoproduct.TextChanged += new System.EventHandler(this.txttipoproduct_TextChanged);
             // 
             // txtprecio
             // 
             this.txtprecio.Location = new System.Drawing.Point(550, 319);
-            this.txtprecio.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.txtprecio.Margin = new System.Windows.Forms.Padding(4);
             this.txtprecio.Name = "txtprecio";
             this.txtprecio.Size = new System.Drawing.Size(134, 26);
             this.txtprecio.TabIndex = 14;
@@ -178,26 +173,27 @@ namespace modulo_inventario
             // textdes5
             // 
             this.textdes5.Location = new System.Drawing.Point(366, 82);
-            this.textdes5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textdes5.Margin = new System.Windows.Forms.Padding(4);
             this.textdes5.Name = "textdes5";
             this.textdes5.Size = new System.Drawing.Size(127, 26);
             this.textdes5.TabIndex = 0;
             // 
-            // button3
+            // btsave
             // 
-            this.button3.Location = new System.Drawing.Point(498, 433);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(75, 23);
-            this.button3.TabIndex = 15;
-            this.button3.Text = "Guardar";
-            this.button3.UseVisualStyleBackColor = true;
+            this.btsave.Location = new System.Drawing.Point(498, 433);
+            this.btsave.Name = "btsave";
+            this.btsave.Size = new System.Drawing.Size(75, 23);
+            this.btsave.TabIndex = 15;
+            this.btsave.Text = "Guardar";
+            this.btsave.UseVisualStyleBackColor = true;
+            this.btsave.Click += new System.EventHandler(this.btsave_Click);
             // 
             // vatras
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(725, 490);
-            this.Controls.Add(this.button3);
+            this.Controls.Add(this.btsave);
             this.Controls.Add(this.textdes5);
             this.Controls.Add(this.txtprecio);
             this.Controls.Add(this.txttipoproduct);
@@ -215,7 +211,7 @@ namespace modulo_inventario
             this.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
             this.Name = "vatras";
             this.Text = "ProductsFormView";
-            this.Load += new System.EventHandler(this.ProductsFormView_Load_1);
+            this.Load += new System.EventHandler(this.vatras_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -237,6 +233,6 @@ namespace modulo_inventario
         private System.Windows.Forms.TextBox txttipoproduct;
         private System.Windows.Forms.TextBox txtprecio;
         private System.Windows.Forms.TextBox textdes5;
-        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button btsave;
     }
 }
