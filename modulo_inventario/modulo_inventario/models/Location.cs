@@ -6,25 +6,25 @@ using System.Threading.Tasks;
 
 namespace modulo_inventario.models
 {
-    class Location : Conection
+    public class Locations : Conection
     {
 
-        private static List<Location> locations_table = new List<Location>() { 
-            new Location(1, "Stock Location", "Internal"),
-            new Location(2, "Scrap Location", "Waste"),
-            new Location(3, "Customer Location", "Customer"),
-            new Location(4, "Supplier Location", "Supplier"),
+        private static List<Locations> Locationss_table = new List<Locations>() { 
+            new Locations(1, "Stock Locations", "Internal"),
+            new Locations(2, "Scrap Locations", "Waste"),
+            new Locations(3, "Customer Locations", "Customer"),
+            new Locations(4, "Supplier Locations", "Supplier"),
         };
 
         private int _id;
         private string _name;
         private string _type;
 
-        public Location()
+        public Locations()
         {
         }
 
-        public Location(int id, string name, string type)
+        public Locations(int id, string name, string type)
         {
             this._id = id;
             this._name = name;
@@ -54,38 +54,38 @@ namespace modulo_inventario.models
         }
         public int Id { get => _id; set => _id = value; }
 
-        public static Location Browse(int id)
+        public static Locations Browse(int id)
         {
-            Location result = new Location();
-            foreach (Location location in locations_table)
+            Locations result = new Locations();
+            foreach (Locations Locations in Locationss_table)
             {
-                if (location.Id == id)
+                if (Locations.Id == id)
                 {
-                    result = location;
+                    result = Locations;
                     break;
                 }
             }
             return result;
         }
 
-        public static Location[] Browse()
+        public static Locations[] Browse()
         {
-            return locations_table.ToArray();
+            return Locationss_table.ToArray();
         }
 
         public override void Create()
         {
-            locations_table.Add(this);
+            Locationss_table.Add(this);
         }
 
-        public static Location[] Search(string name)
+        public static Locations[] Search(string name)
         {
-            List<Location> result = new List<Location>();
-            foreach (Location location in locations_table)
+            List<Locations> result = new List<Locations>();
+            foreach (Locations Locations in Locationss_table)
             {
-                if (location.Name == name)
+                if (Locations.Name == name)
                 {
-                    result.Add(location);
+                    result.Add(Locations);
                 }
             }
             return result.ToArray();
@@ -93,13 +93,13 @@ namespace modulo_inventario.models
 
         public override void Unlink()
         {
-            locations_table.Remove(this);
+            Locationss_table.Remove(this);
         }
 
         public override void Write()
         {
-            int index = locations_table.FindIndex(a => a.Id == this.Id);
-            locations_table[index] = this;
+            int index = Locationss_table.FindIndex(a => a.Id == this.Id);
+            Locationss_table[index] = this;
         }
     }
 }

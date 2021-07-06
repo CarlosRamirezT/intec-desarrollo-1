@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace modulo_inventario.models
 {
-    class Product : Conection
+    public class Product : Conection
     {
 
         private static List<Product> product_table = new List<Product>{

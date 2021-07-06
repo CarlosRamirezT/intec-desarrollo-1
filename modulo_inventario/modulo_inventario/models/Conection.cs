@@ -3,7 +3,7 @@
 
 namespace modulo_inventario.models
 {
-    abstract class Conection
+    public abstract class Conection
     {
         // cadena con el datasource, puerto, usuario, password, base de datos y tabla para conectarse a la base de datos
         protected readonly string CONNECTION_STRING = "Host=localhost;Username=cadara;Password=cadara;Database=desarrollo-1-final";

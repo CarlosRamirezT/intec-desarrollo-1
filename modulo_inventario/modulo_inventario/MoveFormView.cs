@@ -16,10 +16,10 @@ namespace modulo_inventario
         public MoveFormView()
         {
             InitializeComponent();
-            LoadGrid(Move.Browse());
+            LoadGrid(Moves.Browse());
         }
 
-        private void LoadGrid(Move[] moves)
+        private void LoadGrid(Moves[] moves)
         {
             dataGridView1.Columns.Add("ID", "ID");
             dataGridView1.Columns.Add("Contacto", "Contacto");
@@ -56,7 +56,7 @@ namespace modulo_inventario
         private void buttonSearch_Click(object sender, EventArgs e)
         {
             string vBarra = textBoxSearchBar.Text.ToString();
-            Move [] moves = Move.Search(vBarra);
+            Moves[] moves = Moves.Search(vBarra);
             LoadGrid(moves);
         }
 
@@ -66,7 +66,7 @@ namespace modulo_inventario
             {
                 DataGridViewRow row = this.dataGridView1.Rows[e.RowIndex];
                 int id = int.Parse(row.Cells["ID"].Value.ToString());
-                Move move = Move.Browse(id);
+                Moves move = Moves.Browse(id);
                 MoveFormInformation vCreate = new MoveFormInformation(move);
                 vCreate.Show();
                 this.Visible = false;
@@ -74,4 +74,5 @@ namespace modulo_inventario
 
             }
         }
+    }
 }

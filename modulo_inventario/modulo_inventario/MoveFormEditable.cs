@@ -13,14 +13,14 @@ namespace modulo_inventario
 {
     public partial class MoveFormEditable : Form
     {
-        private Move vInformation;
+        private Moves vInformation;
 
         public MoveFormEditable()
         {
             InitializeComponent();
         }
 
-        public MoveFormEditable(Move vData)
+        public MoveFormEditable(Moves vData)
         {
             InitializeComponent();
             this.vInformation = vData;
@@ -74,13 +74,13 @@ namespace modulo_inventario
 
         private void buttonGuardar_Click(object sender, EventArgs e)
         {
-            Move vMove = new Move(
+            Moves vMove = new Moves(
                 int.Parse(textBoxID.Text.ToString()), 
                 textBoxContacto.Text.ToString(), 
                 textBoxDestino.Text.ToString(), 
                 textBoxTipo.Text.ToString(),
-                Location.Search(textBoxOrigen.Text.ToString())[0],
-                Location.Search(textBoxDestino.Text.ToString())[0],
+                Locations.Search(textBoxOrigen.Text.ToString())[0],
+                Locations.Search(textBoxDestino.Text.ToString())[0],
                 DateTime.Parse(textBoxFecha.Text.ToString()),
                 new MoveLine[] { });
 

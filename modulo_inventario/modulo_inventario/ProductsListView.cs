@@ -30,11 +30,12 @@ namespace modulo_inventario
             {
                 DataGridViewRow row = this.dataGridView1.Rows[e.RowIndex];
                 int id = int.Parse(row.Cells["ID"].Value.ToString());
-                Product product= Product.Browse(id);
+                Product product = Product.Browse(id);
                 ProductFormInformation vCreate = new ProductFormInformation(product);
                 vCreate.Show();
                 this.Visible = false;
             }
+        }
         private void llenargrid(Product[] vy )
         {
             dataGridView1.Columns.Add("Id", "Id");
