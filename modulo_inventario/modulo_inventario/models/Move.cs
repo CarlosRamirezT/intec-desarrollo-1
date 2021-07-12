@@ -3,16 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Npgsql;
 
 namespace modulo_inventario.models
 {
     public class Moves : Conection
     {
-        private static List<Moves> moves_table = new List<Moves> { 
-            new Moves(1, "Carlos Ramirez", "Santo Domingo", "receipt", Locations.Browse()[3], Locations.Browse()[1], DateTime.Now, new MoveLine[]{}),
-            new Moves(2, "Carlos Ramirez", "Santo Domingo", "internal", Locations.Browse()[1], Locations.Browse()[0], DateTime.Now, new MoveLine[]{}),
-            new Moves(3, "Carlos Ramirez", "Santo Domingo", "customer", Locations.Browse()[0], Locations.Browse()[2], DateTime.Now, new MoveLine[]{}),
-        };
+
+        private static string _table_name = "moves";
 
         private int _id;
         private string _contact;
@@ -27,7 +25,7 @@ namespace modulo_inventario.models
         {
         }
 
-        public Moves(int id, string contact, string contact_address, string type, Locations source_location, Locations destination_location, DateTime schedule_date, MoveLine[] move_lines)
+        public Moves(int id, string contact, string contact_address, string type, Locations source_location, Locations destination_location, DateTime schedule_date)
         {
             this._id = id;
             this._contact = contact;
@@ -36,7 +34,6 @@ namespace modulo_inventario.models
             this._source_location = source_location;
             this._destination_location = destination_location;
             this._schedule_date = schedule_date;
-            this._move_lines = move_lines;
         }
 
         public int Id { get => _id; set => _id = value; }
@@ -50,50 +47,97 @@ namespace modulo_inventario.models
 
         public static Moves Browse(int id)
         {
-            Moves result = new Moves();
-            foreach(Moves move in moves_table)
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"select * from {_table_name} where id = {id};";
+            using var command = new NpgsqlCommand(query, connection);
+            using NpgsqlDataReader reader = command.ExecuteReader();
+            Moves move = new Moves();
+            while (reader.Read())
             {
-                if (move.Id == id)
-                {
-                    result = move;
-                    break;
-                }
+                move = new Moves(
+                    reader.GetInt32(0),
+                    reader.GetString(1),
+                    reader.GetString(2),
+                    reader.GetString(3),
+                    Locations.Browse(reader.GetInt32(4)),
+                    Locations.Browse(reader.GetInt32(5)),
+                    reader.GetDateTime(6)
+                );
             }
-            return result;
+            return move;
         }
 
         public static Moves[] Browse()
         {
-            return moves_table.ToArray();
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"select * from {_table_name};";
+            using var command = new NpgsqlCommand(query, connection);
+            using NpgsqlDataReader reader = command.ExecuteReader();
+            List<Moves> moves = new List<Moves>();
+            while (reader.Read())
+            {
+                Moves move = new Moves(
+                   reader.GetInt32(0),
+                   reader.GetString(1),
+                   reader.GetString(2),
+                   reader.GetString(3),
+                   Locations.Browse(reader.GetInt32(4)),
+                   Locations.Browse(reader.GetInt32(5)),
+                   reader.GetDateTime(6)
+               );
+                moves.Add(move);
+            }
+            return moves.ToArray();
         }
 
         public override void Create()
         {
-            moves_table.Add(this);
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"insert into {_table_name}(contact, contact_address, type, source_location_id, destination_location_id, schedule_date)" +
+                $"values({this.Contact}, {this.Contact_address}, {this.Type}, {this.Source_location.Id}, {this.Destination_location.Id}, {this.Schedule_date.Date});";
+            using var command = new NpgsqlCommand(query, connection);
+            command.ExecuteNonQuery();
         }
 
         public static Moves[] Search(string contact)
         {
-            List<Moves> result = new List<Moves>();
-            foreach(Moves move in moves_table)
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"select * from {_table_name} where contact = {contact} or contact_address = {contact} or type = {contact} or date = {contact};";
+            using var command = new NpgsqlCommand(query, connection);
+            using NpgsqlDataReader reader = command.ExecuteReader();
+            List<Moves> moves = new List<Moves>();
+            while (reader.Read())
             {
-                if(move.Contact == contact)
-                {
-                    result.Add(move);
-                }
+                Moves move = new Moves(
+                   reader.GetInt32(0),
+                   reader.GetString(1),
+                   reader.GetString(2),
+                   reader.GetString(3),
+                   Locations.Browse(reader.GetInt32(4)),
+                   Locations.Browse(reader.GetInt32(5)),
+                   reader.GetDateTime(6)
+               );
+                moves.Add(move);
             }
-            return result.ToArray();
+            return moves.ToArray();
         }
 
         public override void Unlink()
         {
-            moves_table.Remove(this);
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"delete from {_table_name} where id = {this.Id};";
+            using var command = new NpgsqlCommand(query, connection);
+            command.ExecuteNonQuery();
         }
 
         public override void Write()
         {
-            int index = moves_table.FindIndex(a => a.Id == this.Id);
-            moves_table[index] = this;
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"update {_table_name}" +
+                $"set contact = {this.Contact}, contact_address = {this.Contact_address}, type = {this.Type}, source_location_id = {this.Source_location.Id}, destination_location_id = {this.Destination_location.Id}, schedule_date = {this.Schedule_date.Date}" +
+                $"where id = {this.Id};";
+            using var command = new NpgsqlCommand(query, connection);
+            command.ExecuteNonQuery();
         }
     }
 
