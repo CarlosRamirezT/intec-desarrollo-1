@@ -3,18 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Npgsql;
 
 namespace modulo_inventario.models
 {
     public class Locations : Conection
     {
 
-        private static List<Locations> Locationss_table = new List<Locations>() { 
-            new Locations(1, "Stock Locations", "Internal"),
-            new Locations(2, "Scrap Locations", "Waste"),
-            new Locations(3, "Customer Locations", "Customer"),
-            new Locations(4, "Supplier Locations", "Supplier"),
-        };
+        private static string _table_name = "locations";
 
         private int _id;
         private string _name;
@@ -62,50 +58,85 @@ namespace modulo_inventario.models
 
         public static Locations Browse(int id)
         {
-            Locations result = new Locations();
-            foreach (Locations Locations in Locationss_table)
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"select * from {_table_name} where id = {id};";
+            using var command = new NpgsqlCommand(query, connection);
+            using NpgsqlDataReader reader = command.ExecuteReader();
+            Locations location = new Locations();
+            while (reader.Read())
             {
-                if (Locations.Id == id)
-                {
-                    result = Locations;
-                    break;
-                }
+                location = new Locations(
+                    reader.GetInt32(0),
+                    reader.GetString(1),
+                    reader.GetString(2)
+                );
             }
-            return result;
+            return location;
         }
 
         public static Locations[] Browse()
         {
-            return Locationss_table.ToArray();
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"select * from {_table_name};";
+            using var command = new NpgsqlCommand(query, connection);
+            using NpgsqlDataReader reader = command.ExecuteReader();
+            List<Locations> locations = new List<Locations>();
+            while (reader.Read())
+            {
+                Locations location = new Locations(
+                    reader.GetInt32(0),
+                    reader.GetString(1),
+                    reader.GetString(2)
+                );
+                locations.Add(location);
+            }
+            return locations.ToArray();
         }
 
         public override void Create()
         {
-            Locationss_table.Add(this);
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"insert into {_table_name}(name, type)" +
+                $"values({this.Name}, {this.Type});";
+            using var command = new NpgsqlCommand(query, connection);
+            command.ExecuteNonQuery();
         }
 
         public static Locations[] Search(string name)
         {
-            List<Locations> result = new List<Locations>();
-            foreach (Locations Locations in Locationss_table)
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"select * from {_table_name} where name = {name} or type = {name};";
+            using var command = new NpgsqlCommand(query, connection);
+            using NpgsqlDataReader reader = command.ExecuteReader();
+            List<Locations> locations = new List<Locations>();
+            while (reader.Read())
             {
-                if (Locations.Name == name)
-                {
-                    result.Add(Locations);
-                }
+                Locations location = new Locations(
+                    reader.GetInt32(0),
+                    reader.GetString(1),
+                    reader.GetString(2)
+                );
+                locations.Add(location);
             }
-            return result.ToArray();
+            return locations.ToArray();
         }
 
         public override void Unlink()
         {
-            Locationss_table.Remove(this);
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"delete from {_table_name} where id = {this.Id};";
+            using var command = new NpgsqlCommand(query, connection);
+            command.ExecuteNonQuery();
         }
 
         public override void Write()
         {
-            int index = Locationss_table.FindIndex(a => a.Id == this.Id);
-            Locationss_table[index] = this;
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"update {_table_name}" +
+                $"set name = {this.Name}, type = {this.Type}" +
+                $"where id = {this.Id};";
+            using var command = new NpgsqlCommand(query, connection);
+            command.ExecuteNonQuery();
         }
     }
 }
