@@ -4,29 +4,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Npgsql;
 
 namespace modulo_inventario.models
 {
     public class Product : Conection
     {
 
-        private static List<Product> product_table = new List<Product>{
-            new Product(1, "Pan", "Almacenable", "PRDCT 001", 10, 5, 100, 25),
-            new Product(2, "Leche", "Almacenable", "PRDCT 002", 75, 30, 25, 15),
-            new Product(3, "Arroz", "Almacenable", "PRDCT 003", 35, 20, 50, 20),
-            new Product(4, "Huevo", "Almacenable", "PRDCT 004", 7, 3, 50, 25),
-            new Product(5, "Queso", "Almacenable", "PRDCT 005", 130, 90, 20, 40),
-        };
+        private static string _table_name = "products";
 
         private int _id;
         private string _name;
         private string _type;
+        private string _unit;
         private string _code;
         private double _sales_price;
         private double _purchase_price;
-        private double _available_qty;
-        private double _forecasted_qty;
-        private List<MoveLine> _stock_move_lines;
+        private double _min_qty;
+        private double _max_qty;
 
         public Product()
         {
@@ -41,19 +36,20 @@ namespace modulo_inventario.models
             this._purchase_price = purchase_price;
         }
 
-        public Product(int id, string name, string type, string code, double sales_price, double purchase_price, double available_qty, double forecasted_qty)
+        public Product(int id, string name, string type, string unit, string code, double sales_price, double purchase_price, double min_qty, double max_qty)
         {
             this._id = id;
             this._name = name;
             this._type = type;
+            this._unit = unit;
             this._code = code;
             this._sales_price = sales_price;
             this._purchase_price = purchase_price;
-            this._available_qty = available_qty;
-            this._forecasted_qty = forecasted_qty;
+            this.Min_qty = min_qty;
+            this.Max_qty = max_qty;
         }
 
-        public Product(int id, string name, string type, string code, double sales_price, double purchase_price, double available_qty, double forecasted_qty, List<MoveLine> stock_move_lines)
+        public Product(int id, string name, string type, string code, double sales_price, double purchase_price, double min_qty, double max_qty, List<MoveLine> stock_move_lines)
         {
             this._id = id;
             this._name = name;
@@ -61,9 +57,6 @@ namespace modulo_inventario.models
             this._code = code;
             this._sales_price = sales_price;
             this._purchase_price = purchase_price;
-            this._available_qty = available_qty;
-            this._forecasted_qty = forecasted_qty;
-            this._stock_move_lines = stock_move_lines;
         }
 
         public int Id { get => _id; set => _id = value; }
@@ -88,7 +81,6 @@ namespace modulo_inventario.models
                 }
                 return result;
             } 
-            set => _available_qty = value; 
         }
 
         public double Forecasted_qty {
@@ -102,7 +94,6 @@ namespace modulo_inventario.models
                 }
                 return result;
             }
-            set => _forecasted_qty = value; 
         }
 
         public List<MoveLine> Stock_move_lines {
@@ -110,53 +101,111 @@ namespace modulo_inventario.models
             {
                 return MoveLine.Search(this.Id).ToList();
             }
-            set => _stock_move_lines = value; 
         }
+
+        public string Unit { get => _unit; set => _unit = value; }
+        public double Min_qty { get => _min_qty; set => _min_qty = value; }
+        public double Max_qty { get => _max_qty; set => _max_qty = value; }
 
         public static Product Browse(int id)
         {
-            Product result = new Product();
-            foreach(Product product in product_table){
-                if (product.Id == id) {
-                    result = product;
-                    break;
-                }
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"select * from {_table_name} where id = {id};";
+            using var command = new NpgsqlCommand(query, connection);
+            using NpgsqlDataReader reader = command.ExecuteReader();
+            Product product = new Product();
+            while (reader.Read())
+            {
+                product = new Product(
+                    reader.GetInt32(0),
+                    reader.GetString(1),
+                    reader.GetString(2),
+                    reader.GetString(3),
+                    reader.GetString(4),
+                    reader.GetDouble(5),
+                    reader.GetDouble(6),
+                    reader.GetDouble(7),
+                    reader.GetDouble(8)
+                );
             }
-            return result;
+            return product;
         }
 
         public static Product[] Browse()
         {
-            return product_table.ToArray();
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"select * from {_table_name};";
+            using var command = new NpgsqlCommand(query, connection);
+            using NpgsqlDataReader reader = command.ExecuteReader();
+            List<Product> products = new List<Product>();
+            while (reader.Read())
+            {
+                Product product = new Product(
+                    reader.GetInt32(0),
+                    reader.GetString(1),
+                    reader.GetString(2),
+                    reader.GetString(3),
+                    reader.GetString(4),
+                    reader.GetDouble(5),
+                    reader.GetDouble(6),
+                    reader.GetDouble(7),
+                    reader.GetDouble(8)
+                );
+                products.Add(product);
+            }
+            return products.ToArray();
         }
 
         public override void Create()
         {
-            product_table.Add(this);
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"insert into {_table_name}(name, type, unit, code, sales_price, purchase_price, min_qty, max_max)" +
+                $"values({this.Name}, {this.Type}, {this.Unit}, {this.Code}, {this.Sales_price}, {this.Purchase_price}, {this.Min_qty}, {this.Max_qty});";
+            using var command = new NpgsqlCommand(query, connection);
+            command.ExecuteNonQuery();
         }
 
         public static Product[] Search(string name)
         {
-            List<Product> result = new List<Product>();
-            foreach (Product product in product_table)
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"select * from {_table_name} where name = {name} or type = {name} or unit = {name} or code = {name};";
+            using var command = new NpgsqlCommand(query, connection);
+            using NpgsqlDataReader reader = command.ExecuteReader();
+            List<Product> products = new List<Product>();
+            while (reader.Read())
             {
-                if (product.Name == name)
-                {
-                    result.Add(product);
-                }
+                Product product = new Product(
+                    reader.GetInt32(0),
+                    reader.GetString(1),
+                    reader.GetString(2),
+                    reader.GetString(3),
+                    reader.GetString(4),
+                    reader.GetDouble(5),
+                    reader.GetDouble(6),
+                    reader.GetDouble(7),
+                    reader.GetDouble(8)
+                );
+                products.Add(product);
             }
-            return result.ToArray();
+            return products.ToArray();
         }
 
         public override void Unlink()
         {
-            product_table.Remove(this);
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"delete from {_table_name} where id = {this.Id};";
+            using var command = new NpgsqlCommand(query, connection);
+            command.ExecuteNonQuery();
         }
 
         public override void Write()
         {
-            int index = product_table.FindIndex(a => a.Id == this.Id);
-            product_table[index] = this;
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"update {_table_name}" +
+                $"set name = {this.Name}, type = {this.Type}, unit = {this.Unit}, code = {this.Code}, sales_price = {this.Sales_price}, purchase_price = {this.Purchase_price}, min_qty = {this.Min_qty}, max_qty = {this.Max_qty}" +
+                $"where id = {this.Id};";
+            using var command = new NpgsqlCommand(query, connection);
+            command.ExecuteNonQuery();
         }
     }
 }
