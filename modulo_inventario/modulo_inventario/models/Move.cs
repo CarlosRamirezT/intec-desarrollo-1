@@ -143,11 +143,7 @@ namespace modulo_inventario.models
 
     public class MoveLine : Conection
     {
-        private static List<MoveLine> move_line_table = new List<MoveLine> { 
-            new MoveLine(1, Moves.Browse()[0], Product.Browse()[0], 2, "receipt", Locations.Browse()[3], Locations.Browse()[1]),
-            new MoveLine(2, Moves.Browse()[1], Product.Browse()[1],5, "internal", Locations.Browse()[1], Locations.Browse()[0]),
-            new MoveLine(3, Moves.Browse()[2], Product.Browse()[2],3, "customer", Locations.Browse()[0], Locations.Browse()[2]),
-        };
+        private static string _table_name = "move_lines";
 
         private int _id;
         private Moves _move;
@@ -162,7 +158,7 @@ namespace modulo_inventario.models
         {
         }
 
-        public MoveLine(int id, Moves move, Product product, double qty, string type, Locations souce_location, Locations destination_location)
+        public MoveLine(int id, Moves move, Product product, double qty, string type, Locations souce_location, Locations destination_location, string state)
         {
             this._id = id;
             this._move = move;
@@ -171,6 +167,7 @@ namespace modulo_inventario.models
             this._type = type;
             this._souce_location = souce_location;
             this._destination_location = destination_location;
+            this._state = state;
         }
 
         public int Id { get => _id; set => _id = value; }
@@ -184,102 +181,195 @@ namespace modulo_inventario.models
 
         public static MoveLine Browse(int id)
         {
-            MoveLine result = new MoveLine();
-            foreach (MoveLine line in move_line_table)
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"select * from {_table_name} where id = {id};";
+            using var command = new NpgsqlCommand(query, connection);
+            using NpgsqlDataReader reader = command.ExecuteReader();
+            MoveLine move_line = new MoveLine();
+            while (reader.Read())
             {
-                if(line.Id == id)
-                {
-                    result = line;
-                    break;
-                }
+                move_line = new MoveLine(
+                    reader.GetInt32(0),
+                    Moves.Browse(reader.GetInt32(1)),
+                    Product.Browse(reader.GetInt32(2)),
+                    reader.GetDouble(3),
+                    reader.GetString(4),
+                    Locations.Browse(reader.GetInt32(5)),
+                    Locations.Browse(reader.GetInt32(6))
+                );
             }
-            return result;
+            return move_line;
         }
 
         public static MoveLine[] Browse()
         {
-            return move_line_table.ToArray();
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"select * from {_table_name};";
+            using var command = new NpgsqlCommand(query, connection);
+            using NpgsqlDataReader reader = command.ExecuteReader();
+            List<MoveLine> move_lines = new List<MoveLine>();
+            while (reader.Read())
+            {
+                MoveLine move_line = new MoveLine(
+                    reader.GetInt32(0),
+                    Moves.Browse(reader.GetInt32(1)),
+                    Product.Browse(reader.GetInt32(2)),
+                    reader.GetDouble(3),
+                    reader.GetString(4),
+                    Locations.Browse(reader.GetInt32(5)),
+                    Locations.Browse(reader.GetInt32(6)),
+                    reader.GetString(7)
+                );
+                move_lines.Add(move_line);
+            }
+            return move_lines.ToArray();
         }
 
         public override void Create()
         {
-            move_line_table.Add(this);
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"insert into {_table_name}(move_id, product_id, qty, type, source_location_id, destination_location_id)" +
+                $"values({this.Move_id.Id}, {this.Product.Id}, {this.Qty}, {this.Type}, {this.Souce_location.Id}, {this.Destination_location.Id});";
+            using var command = new NpgsqlCommand(query, connection);
+            command.ExecuteNonQuery();
         }
 
         public static MoveLine[] Search(string name)
         {
-            List<MoveLine> result = new List<MoveLine>();
-            foreach (MoveLine line in move_line_table)
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"select * from {_table_name} where qty = {name} or type = {name};";
+            using var command = new NpgsqlCommand(query, connection);
+            using NpgsqlDataReader reader = command.ExecuteReader();
+            List<MoveLine> move_lines = new List<MoveLine>();
+            while (reader.Read())
             {
-                if (line.Product.Name == name || line.Souce_location.Name == name || line.Destination_location.Name == name || line.Type == name)
-                {
-                    result.Add(line);
-                }
+                MoveLine move_line = new MoveLine(
+                    reader.GetInt32(0),
+                    Moves.Browse(reader.GetInt32(1)),
+                    Product.Browse(reader.GetInt32(2)),
+                    reader.GetDouble(3),
+                    reader.GetString(4),
+                    Locations.Browse(reader.GetInt32(5)),
+                    Locations.Browse(reader.GetInt32(6)),
+                    reader.GetString(7)
+                );
+                move_lines.Add(move_line);
             }
-            return result.ToArray();
+            return move_lines.ToArray();
         }
 
         public static MoveLine[] Search(int product_id, string[] types)
         {
-            List<MoveLine> result = new List<MoveLine>();
-            foreach (MoveLine line in move_line_table)
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"select * from {_table_name} where product_id = {product_id} and type in ({String.Join(", ", types)});";
+            using var command = new NpgsqlCommand(query, connection);
+            using NpgsqlDataReader reader = command.ExecuteReader();
+            List<MoveLine> move_lines = new List<MoveLine>();
+            while (reader.Read())
             {
-                if (line.Product.Id == product_id && Array.Exists(types, element => element == line.Type))
-                {
-                    result.Add(line);
-                }
+                MoveLine move_line = new MoveLine(
+                    reader.GetInt32(0),
+                    Moves.Browse(reader.GetInt32(1)),
+                    Product.Browse(reader.GetInt32(2)),
+                    reader.GetDouble(3),
+                    reader.GetString(4),
+                    Locations.Browse(reader.GetInt32(5)),
+                    Locations.Browse(reader.GetInt32(6)),
+                    reader.GetString(7)
+                );
+                move_lines.Add(move_line);
             }
-            return result.ToArray();
+            return move_lines.ToArray();
         }
 
         public static MoveLine[] Search(int product_id, string[] types, string state)
         {
-            List<MoveLine> result = new List<MoveLine>();
-            foreach (MoveLine line in move_line_table)
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"select * from {_table_name} where product_id = {product_id} and type in ({String.Join(", ", types)}) and state = {state};";
+            using var command = new NpgsqlCommand(query, connection);
+            using NpgsqlDataReader reader = command.ExecuteReader();
+            List<MoveLine> move_lines = new List<MoveLine>();
+            while (reader.Read())
             {
-                if (line.Product.Id == product_id && Array.Exists(types, element => element == line.Type) && line.State == state)
-                {
-                    result.Add(line);
-                }
+                MoveLine move_line = new MoveLine(
+                    reader.GetInt32(0),
+                    Moves.Browse(reader.GetInt32(1)),
+                    Product.Browse(reader.GetInt32(2)),
+                    reader.GetDouble(3),
+                    reader.GetString(4),
+                    Locations.Browse(reader.GetInt32(5)),
+                    Locations.Browse(reader.GetInt32(6)),
+                    reader.GetString(7)
+                );
+                move_lines.Add(move_line);
             }
-            return result.ToArray();
+            return move_lines.ToArray();
         }
 
         public static MoveLine[] Search(int product_id)
         {
-            List<MoveLine> result = new List<MoveLine>();
-            foreach (MoveLine line in move_line_table)
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"select * from {_table_name} where product_id = {product_id};";
+            using var command = new NpgsqlCommand(query, connection);
+            using NpgsqlDataReader reader = command.ExecuteReader();
+            List<MoveLine> move_lines = new List<MoveLine>();
+            while (reader.Read())
             {
-                if (line.Product.Id == product_id)
-                {
-                    result.Add(line);
-                }
+                MoveLine move_line = new MoveLine(
+                    reader.GetInt32(0),
+                    Moves.Browse(reader.GetInt32(1)),
+                    Product.Browse(reader.GetInt32(2)),
+                    reader.GetDouble(3),
+                    reader.GetString(4),
+                    Locations.Browse(reader.GetInt32(5)),
+                    Locations.Browse(reader.GetInt32(6)),
+                    reader.GetString(7)
+                );
+                move_lines.Add(move_line);
             }
-            return result.ToArray();
+            return move_lines.ToArray();
         }
 
         public static MoveLine[] Search(Locations location)
         {
-            List<MoveLine> result = new List<MoveLine>();
-            foreach (MoveLine line in move_line_table)
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"select * from {_table_name} where source_location_id = {location.Id} or destination_location_id = {location.Id};";
+            using var command = new NpgsqlCommand(query, connection);
+            using NpgsqlDataReader reader = command.ExecuteReader();
+            List<MoveLine> move_lines = new List<MoveLine>();
+            while (reader.Read())
             {
-                if (line.Souce_location.Id == location.Id || line.Destination_location.Id == location.Id)
-                {
-                    result.Add(line);
-                }
+                MoveLine move_line = new MoveLine(
+                    reader.GetInt32(0),
+                    Moves.Browse(reader.GetInt32(1)),
+                    Product.Browse(reader.GetInt32(2)),
+                    reader.GetDouble(3),
+                    reader.GetString(4),
+                    Locations.Browse(reader.GetInt32(5)),
+                    Locations.Browse(reader.GetInt32(6)),
+                    reader.GetString(7)
+                );
+                move_lines.Add(move_line);
             }
-            return result.ToArray();
+            return move_lines.ToArray();
         }
 
         public override void Unlink()
         {
-            move_line_table.Remove(this);
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"delete from {_table_name} where id = {this.Id};";
+            using var command = new NpgsqlCommand(query, connection);
+            command.ExecuteNonQuery();
         }
 
         public override void Write()
         {
-            int index = move_line_table.FindIndex(a => a.Id == this.Id);
-            move_line_table[index] = this;
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"update {_table_name}" +
+                $"set move_id = {this.Move_id.Id}, product_id = {this.Product.Id}, qty = {this.Qty}, type = {this.Type}, source_location_id = {this.Souce_location.Id}, destination_location_id = {this.Destination_location.Id}, state = {this.State}" +
+                $"where id = {this.Id};";
+            using var command = new NpgsqlCommand(query, connection);
+            command.ExecuteNonQuery();
         }
     }
 }
