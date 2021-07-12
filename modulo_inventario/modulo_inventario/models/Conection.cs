@@ -1,4 +1,5 @@
 ﻿using System;
+using Npgsql;
 
 
 namespace modulo_inventario.models
@@ -6,12 +7,22 @@ namespace modulo_inventario.models
     public abstract class Conection
     {
         // cadena con el datasource, puerto, usuario, password, base de datos y tabla para conectarse a la base de datos
-        protected readonly string CONNECTION_STRING = "Host=localhost;Username=cadara;Password=cadara;Database=desarrollo-1-final";
+        private static readonly string CONNECTION_STRING = "Host=localhost;Username=postgres;Password=cadara;Database=dev1_final";
         // query a ejecutar en la base de datos, cada metodo debera modificarlo
         protected string _query;
         // variable para almacenar la referencia en memoria a la conexion establecido con la base de datos
         // se debe reiniciar en el constructor de cada clase que implemente esta clase abstracta
-        protected Conection _connection;
+        private static NpgsqlConnection _connection;
+
+        public static NpgsqlConnection get_connection()
+        {
+            if (_connection == null)
+            {
+               _connection = new NpgsqlConnection(CONNECTION_STRING);
+               _connection.Open();
+            }
+            return _connection;
+        }
 
         //protected NpgsqlCommand _command;
 
