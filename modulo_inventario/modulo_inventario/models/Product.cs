@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Npgsql;
+using System.Windows.Forms;
 
 namespace modulo_inventario.models
 {
@@ -78,6 +79,13 @@ namespace modulo_inventario.models
                     {
                         result -= line.Qty;
                     }
+                }
+                if (result >= this.Max_qty)
+                {
+                    MessageBox.Show("El producto ha alcanzado la cantidad maxima en inventario, por favor no haga mas pedidos por el momento!");
+                }else if(result <= this.Min_qty)
+                {
+                    MessageBox.Show("El producto ha alcanzado la cantidad minima en inventario, por favor no haga un pedido a su proveedor!");
                 }
                 return result;
             } 
