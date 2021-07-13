@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="LocationFormEditable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="LocationFormInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="LocationListView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MoveFormEditable.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MoveFormInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="MoveFormView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ProductFormInformation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ProductsFormView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ProductsListView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Ubicacion.Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>
