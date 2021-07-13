@@ -40,6 +40,10 @@ namespace modulo_inventario
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(12, 124);
             this.dataGridView1.Name = "dataGridView1";
@@ -84,7 +88,7 @@ namespace modulo_inventario
             this.btbuscar.Name = "btbuscar";
             this.btbuscar.Size = new System.Drawing.Size(75, 23);
             this.btbuscar.TabIndex = 5;
-            this.btbuscar.Text = "Buscar:";
+            this.btbuscar.Text = "Buscar";
             this.btbuscar.UseVisualStyleBackColor = true;
             this.btbuscar.Click += new System.EventHandler(this.btbuscar_Click);
             // 

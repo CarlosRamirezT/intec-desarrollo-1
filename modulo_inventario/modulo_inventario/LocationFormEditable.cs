@@ -34,27 +34,12 @@ namespace modulo_inventario
 
         private void LocationFormEditable_Load(object sender, EventArgs e)
         {
-            Locations new_location = new Locations(
-                textBoxName.Text,
-                textBoxType.Text
-            );
-            if (location.Id >= 0)
-            {
-                new_location.Id = location.Id;
-                new_location.Write();                
-            }
-            else
-            {
-                new_location.Create();
-            }
-            LocationFormInformation locationFormInformation = new LocationFormInformation(new_location);
-            locationFormInformation.Show();
-            this.Visible = false;
+            
         }
 
         private void buttonExit_Click(object sender, EventArgs e)
         {
-            if (location.Id >= 0)
+            if (location != null && location.Id >= 0)
             {
                 LocationFormInformation locationFormInformation = new LocationFormInformation(location);
                 locationFormInformation.Show();
@@ -67,6 +52,28 @@ namespace modulo_inventario
                 this.Visible = false;
             }
             
+        }
+
+        private void buttonSave_Click(object sender, EventArgs e)
+        {
+            Locations new_location = new Locations(
+                textBoxName.Text,
+                textBoxType.Text
+            );
+            if (location != null && location.Id > 0)
+            {
+                new_location.Id = location.Id;
+                new_location.Write();
+                LocationFormInformation locationFormInformation = new LocationFormInformation(new_location);
+                locationFormInformation.Show();
+            }
+            else
+            {
+                new_location.Create();
+                LocationListView locationListView = new LocationListView();
+                locationListView.Show();
+            }
+            this.Visible = false;
         }
     }
 }

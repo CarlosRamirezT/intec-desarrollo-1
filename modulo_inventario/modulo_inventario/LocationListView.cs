@@ -24,11 +24,17 @@ namespace modulo_inventario
 
         private void loadGrid()
         {
+            limpiarGrid();
             Locations[] locations = Locations.Browse();
             for (int i = 0; i < locations.Length; i++)
             {
                 dataGridView1.Rows.Add(new object[] { locations[i].Id, locations[i].Name, locations[i].Type });
             }
+        }
+
+        private void limpiarGrid()
+        {
+            dataGridView1.DataSource = null;
         }
 
         private void buttonCreate_Click(object sender, EventArgs e)

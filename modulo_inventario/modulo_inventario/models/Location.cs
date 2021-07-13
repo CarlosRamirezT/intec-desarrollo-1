@@ -71,6 +71,7 @@ namespace modulo_inventario.models
                     reader.GetString(2)
                 );
             }
+            connection.Close();
             return location;
         }
 
@@ -90,22 +91,26 @@ namespace modulo_inventario.models
                 );
                 locations.Add(location);
             }
+            connection.Close();
             return locations.ToArray();
         }
 
-        public override void Create()
+        public override int Create()
         {
             NpgsqlConnection connection = Conection.get_connection();
             string query = $"insert into {_table_name}(name, type)" +
-                $"values({this.Name}, {this.Type});";
+                $"values('{this.Name}', '{this.Type}')" +
+                $" returning id;";
             using var command = new NpgsqlCommand(query, connection);
-            command.ExecuteNonQuery();
+            Object res = command.ExecuteScalar();
+            connection.Close();
+            return (int) res;
         }
 
         public static Locations[] Search(string name)
         {
             NpgsqlConnection connection = Conection.get_connection();
-            string query = $"select * from {_table_name} where name = {name} or type = {name};";
+            string query = $"select * from {_table_name} where name = '{name}' or type = '{name}';";
             using var command = new NpgsqlCommand(query, connection);
             using NpgsqlDataReader reader = command.ExecuteReader();
             List<Locations> locations = new List<Locations>();
@@ -118,6 +123,7 @@ namespace modulo_inventario.models
                 );
                 locations.Add(location);
             }
+            connection.Close();
             return locations.ToArray();
         }
 
@@ -127,16 +133,18 @@ namespace modulo_inventario.models
             string query = $"delete from {_table_name} where id = {this.Id};";
             using var command = new NpgsqlCommand(query, connection);
             command.ExecuteNonQuery();
+            connection.Close();
         }
 
         public override void Write()
         {
             NpgsqlConnection connection = Conection.get_connection();
             string query = $"update {_table_name}" +
-                $"set name = {this.Name}, type = {this.Type}" +
-                $"where id = {this.Id};";
+                $" set name = '{this.Name}', type = '{this.Type}'" +
+                $" where id = {this.Id};";
             using var command = new NpgsqlCommand(query, connection);
             command.ExecuteNonQuery();
+            connection.Close();
         }
     }
 }

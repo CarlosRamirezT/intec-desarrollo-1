@@ -19,13 +19,24 @@ namespace modulo_inventario.models
         private Locations _source_location;
         private Locations _destination_location;
         private DateTime _schedule_date;
-        private MoveLine[] _move_lines;
+        private string _state;
 
         public Moves()
         {
         }
 
-        public Moves(int id, string contact, string contact_address, string type, Locations source_location, Locations destination_location, DateTime schedule_date)
+        public Moves(string contact, string contact_address, string type, Locations source_location, Locations destination_location, DateTime schedule_date, string state)
+        {
+            this._contact = contact;
+            this._contact_address = contact_address;
+            this._type = type;
+            this._source_location = source_location;
+            this._destination_location = destination_location;
+            this._schedule_date = schedule_date;
+            this._state = state;
+        }
+
+        public Moves(int id, string contact, string contact_address, string type, Locations source_location, Locations destination_location, DateTime schedule_date, string state)
         {
             this._id = id;
             this._contact = contact;
@@ -34,6 +45,7 @@ namespace modulo_inventario.models
             this._source_location = source_location;
             this._destination_location = destination_location;
             this._schedule_date = schedule_date;
+            this._state = state;
         }
 
         public int Id { get => _id; set => _id = value; }
@@ -43,7 +55,13 @@ namespace modulo_inventario.models
         public DateTime Schedule_date { get => _schedule_date; set => _schedule_date = value; }
         internal Locations Source_location { get => _source_location; set => _source_location = value; }
         internal Locations Destination_location { get => _destination_location; set => _destination_location = value; }
-        internal MoveLine[] Move_lines { get => _move_lines; set => _move_lines = value; }
+        internal MoveLine[] Move_lines { 
+            get {
+                return MoveLine.Browse(this);
+            } 
+        }
+
+        public string State { get => _state; set => _state = value; }
 
         public static Moves Browse(int id)
         {
@@ -61,9 +79,11 @@ namespace modulo_inventario.models
                     reader.GetString(3),
                     Locations.Browse(reader.GetInt32(4)),
                     Locations.Browse(reader.GetInt32(5)),
-                    reader.GetDateTime(6)
+                    reader.GetDateTime(6),
+                    reader.GetString(7)
                 );
             }
+            connection.Close();
             return move;
         }
 
@@ -83,26 +103,31 @@ namespace modulo_inventario.models
                    reader.GetString(3),
                    Locations.Browse(reader.GetInt32(4)),
                    Locations.Browse(reader.GetInt32(5)),
-                   reader.GetDateTime(6)
+                   reader.GetDateTime(6),
+                   reader.GetString(7)
                );
                 moves.Add(move);
             }
+            connection.Close();
             return moves.ToArray();
         }
 
-        public override void Create()
+        public override int Create()
         {
             NpgsqlConnection connection = Conection.get_connection();
-            string query = $"insert into {_table_name}(contact, contact_address, type, source_location_id, destination_location_id, schedule_date)" +
-                $"values({this.Contact}, {this.Contact_address}, {this.Type}, {this.Source_location.Id}, {this.Destination_location.Id}, {this.Schedule_date.Date});";
+            string query = $"insert into {_table_name}(contact, contact_address, type, source_location_id, destination_location_id, schedule_date, state)" +
+                $" values('{this.Contact}', '{this.Contact_address}', '{this.Type}', {this.Source_location.Id}, {this.Destination_location.Id}, '{this.Schedule_date.Date.ToShortDateString()}', '{this.State}')" +
+                $" returning id;";
             using var command = new NpgsqlCommand(query, connection);
-            command.ExecuteNonQuery();
+            Object res = command.ExecuteScalar();
+            connection.Close();
+            return (int) res;
         }
 
         public static Moves[] Search(string contact)
         {
             NpgsqlConnection connection = Conection.get_connection();
-            string query = $"select * from {_table_name} where contact = {contact} or contact_address = {contact} or type = {contact} or date = {contact};";
+            string query = $"select * from {_table_name} where contact = '{contact}' or contact_address = '{contact}' or type = '{contact}';";
             using var command = new NpgsqlCommand(query, connection);
             using NpgsqlDataReader reader = command.ExecuteReader();
             List<Moves> moves = new List<Moves>();
@@ -115,10 +140,12 @@ namespace modulo_inventario.models
                    reader.GetString(3),
                    Locations.Browse(reader.GetInt32(4)),
                    Locations.Browse(reader.GetInt32(5)),
-                   reader.GetDateTime(6)
+                   reader.GetDateTime(6),
+                   reader.GetString(7)
                );
                 moves.Add(move);
             }
+            connection.Close();
             return moves.ToArray();
         }
 
@@ -128,16 +155,18 @@ namespace modulo_inventario.models
             string query = $"delete from {_table_name} where id = {this.Id};";
             using var command = new NpgsqlCommand(query, connection);
             command.ExecuteNonQuery();
+            connection.Close();
         }
 
         public override void Write()
         {
             NpgsqlConnection connection = Conection.get_connection();
             string query = $"update {_table_name}" +
-                $"set contact = {this.Contact}, contact_address = {this.Contact_address}, type = {this.Type}, source_location_id = {this.Source_location.Id}, destination_location_id = {this.Destination_location.Id}, schedule_date = {this.Schedule_date.Date}" +
-                $"where id = {this.Id};";
+                $" set contact = '{this.Contact}', contact_address = '{this.Contact_address}', type = '{this.Type}', source_location_id = {this.Source_location.Id}, destination_location_id = {this.Destination_location.Id}, schedule_date = '{this.Schedule_date.Date.ToShortDateString()}', state = '{this.State}'" +
+                $" where id = {this.Id};";
             using var command = new NpgsqlCommand(query, connection);
             command.ExecuteNonQuery();
+            connection.Close();
         }
     }
 
@@ -156,6 +185,17 @@ namespace modulo_inventario.models
 
         public MoveLine()
         {
+        }
+
+        public MoveLine(Moves move, Product product, double qty, string type, Locations souce_location, Locations destination_location, string state)
+        {
+            this._move = move;
+            this._product = product;
+            this._qty = qty;
+            this._type = type;
+            this._souce_location = souce_location;
+            this._destination_location = destination_location;
+            this._state = state;
         }
 
         public MoveLine(int id, Moves move, Product product, double qty, string type, Locations souce_location, Locations destination_location, string state)
@@ -195,10 +235,37 @@ namespace modulo_inventario.models
                     reader.GetDouble(3),
                     reader.GetString(4),
                     Locations.Browse(reader.GetInt32(5)),
-                    Locations.Browse(reader.GetInt32(6))
+                    Locations.Browse(reader.GetInt32(6)),
+                    reader.GetString(7)
                 );
             }
+            connection.Close();
             return move_line;
+        }
+
+        public static MoveLine[] Browse(Moves move)
+        {
+            NpgsqlConnection connection = Conection.get_connection();
+            string query = $"select * from {_table_name} where move_id = {move.Id};";
+            using var command = new NpgsqlCommand(query, connection);
+            using NpgsqlDataReader reader = command.ExecuteReader();
+            List<MoveLine> move_lines = new List<MoveLine>();
+            while (reader.Read())
+            {
+                MoveLine move_line = new MoveLine(
+                    reader.GetInt32(0),
+                    Moves.Browse(reader.GetInt32(1)),
+                    Product.Browse(reader.GetInt32(2)),
+                    reader.GetDouble(3),
+                    reader.GetString(4),
+                    Locations.Browse(reader.GetInt32(5)),
+                    Locations.Browse(reader.GetInt32(6)),
+                    reader.GetString(7)
+                );
+                move_lines.Add(move_line);
+            }
+            connection.Close();
+            return move_lines.ToArray();
         }
 
         public static MoveLine[] Browse()
@@ -222,22 +289,26 @@ namespace modulo_inventario.models
                 );
                 move_lines.Add(move_line);
             }
+            connection.Close();
             return move_lines.ToArray();
         }
 
-        public override void Create()
+        public override int Create()
         {
             NpgsqlConnection connection = Conection.get_connection();
-            string query = $"insert into {_table_name}(move_id, product_id, qty, type, source_location_id, destination_location_id)" +
-                $"values({this.Move_id.Id}, {this.Product.Id}, {this.Qty}, {this.Type}, {this.Souce_location.Id}, {this.Destination_location.Id});";
+            string query = $"insert into {_table_name}(move_id, product_id, qty, type, source_location_id, destination_location_id, state)" +
+                $" values({this.Move_id.Id}, {this.Product.Id}, {this.Qty}, '{this.Type}', {this.Souce_location.Id}, {this.Destination_location.Id}, '{this.State}')" +
+                $" returning id;";
             using var command = new NpgsqlCommand(query, connection);
-            command.ExecuteNonQuery();
+            Object res = command.ExecuteScalar();
+            connection.Close();
+            return (int) res;
         }
 
         public static MoveLine[] Search(string name)
         {
             NpgsqlConnection connection = Conection.get_connection();
-            string query = $"select * from {_table_name} where qty = {name} or type = {name};";
+            string query = $"select * from {_table_name} where qty = {name} or type = '{name}';";
             using var command = new NpgsqlCommand(query, connection);
             using NpgsqlDataReader reader = command.ExecuteReader();
             List<MoveLine> move_lines = new List<MoveLine>();
@@ -255,13 +326,14 @@ namespace modulo_inventario.models
                 );
                 move_lines.Add(move_line);
             }
+            connection.Close();
             return move_lines.ToArray();
         }
 
         public static MoveLine[] Search(int product_id, string[] types)
         {
             NpgsqlConnection connection = Conection.get_connection();
-            string query = $"select * from {_table_name} where product_id = {product_id} and type in ({String.Join(", ", types)});";
+            string query = $"select * from {_table_name} where product_id = {product_id} and type in ('{String.Join("', '", types)}');";
             using var command = new NpgsqlCommand(query, connection);
             using NpgsqlDataReader reader = command.ExecuteReader();
             List<MoveLine> move_lines = new List<MoveLine>();
@@ -279,13 +351,14 @@ namespace modulo_inventario.models
                 );
                 move_lines.Add(move_line);
             }
+            connection.Close();
             return move_lines.ToArray();
         }
 
         public static MoveLine[] Search(int product_id, string[] types, string state)
         {
             NpgsqlConnection connection = Conection.get_connection();
-            string query = $"select * from {_table_name} where product_id = {product_id} and type in ({String.Join(", ", types)}) and state = {state};";
+            string query = $"select * from {_table_name} where product_id = {product_id} and type in ('{String.Join("', ", types)}') and state = '{state}';";
             using var command = new NpgsqlCommand(query, connection);
             using NpgsqlDataReader reader = command.ExecuteReader();
             List<MoveLine> move_lines = new List<MoveLine>();
@@ -303,6 +376,7 @@ namespace modulo_inventario.models
                 );
                 move_lines.Add(move_line);
             }
+            connection.Close();
             return move_lines.ToArray();
         }
 
@@ -327,6 +401,7 @@ namespace modulo_inventario.models
                 );
                 move_lines.Add(move_line);
             }
+            connection.Close();
             return move_lines.ToArray();
         }
 
@@ -351,6 +426,7 @@ namespace modulo_inventario.models
                 );
                 move_lines.Add(move_line);
             }
+            connection.Close();
             return move_lines.ToArray();
         }
 
@@ -360,16 +436,18 @@ namespace modulo_inventario.models
             string query = $"delete from {_table_name} where id = {this.Id};";
             using var command = new NpgsqlCommand(query, connection);
             command.ExecuteNonQuery();
+            connection.Close();
         }
 
         public override void Write()
         {
             NpgsqlConnection connection = Conection.get_connection();
             string query = $"update {_table_name}" +
-                $"set move_id = {this.Move_id.Id}, product_id = {this.Product.Id}, qty = {this.Qty}, type = {this.Type}, source_location_id = {this.Souce_location.Id}, destination_location_id = {this.Destination_location.Id}, state = {this.State}" +
-                $"where id = {this.Id};";
+                $" set move_id = {this.Move_id.Id}, product_id = {this.Product.Id}, qty = {this.Qty}, type = '{this.Type}', source_location_id = {this.Souce_location.Id}, destination_location_id = {this.Destination_location.Id}, state = '{this.State}'" +
+                $" where id = {this.Id};";
             using var command = new NpgsqlCommand(query, connection);
             command.ExecuteNonQuery();
+            connection.Close();
         }
     }
 }

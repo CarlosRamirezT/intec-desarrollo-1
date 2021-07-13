@@ -48,6 +48,10 @@ namespace modulo_inventario
             this.labelcantidadesperada = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
             this.labeltipo = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.labelMinQty = new System.Windows.Forms.Label();
+            this.labelMaxQty = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button2
@@ -222,11 +226,51 @@ namespace modulo_inventario
             this.labeltipo.TabIndex = 20;
             this.labeltipo.Text = "label11";
             // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(36, 316);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(65, 15);
+            this.label9.TabIndex = 21;
+            this.label9.Text = "Cant. Min.:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(36, 343);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(64, 15);
+            this.label11.TabIndex = 22;
+            this.label11.Text = "Cant. Max.";
+            // 
+            // labelMinQty
+            // 
+            this.labelMinQty.AutoSize = true;
+            this.labelMinQty.Location = new System.Drawing.Point(117, 316);
+            this.labelMinQty.Name = "labelMinQty";
+            this.labelMinQty.Size = new System.Drawing.Size(13, 15);
+            this.labelMinQty.TabIndex = 23;
+            this.labelMinQty.Text = "0";
+            // 
+            // labelMaxQty
+            // 
+            this.labelMaxQty.AutoSize = true;
+            this.labelMaxQty.Location = new System.Drawing.Point(116, 342);
+            this.labelMaxQty.Name = "labelMaxQty";
+            this.labelMaxQty.Size = new System.Drawing.Size(13, 15);
+            this.labelMaxQty.TabIndex = 24;
+            this.labelMaxQty.Text = "0";
+            // 
             // ProductFormInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.labelMaxQty);
+            this.Controls.Add(this.labelMinQty);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.labeltipo);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.labelcantidadesperada);
@@ -273,5 +317,9 @@ namespace modulo_inventario
         private System.Windows.Forms.Label labelcantidadesperada;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label labeltipo;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label labelMinQty;
+        private System.Windows.Forms.Label labelMaxQty;
     }
 }

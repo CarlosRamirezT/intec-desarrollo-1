@@ -37,6 +37,18 @@ namespace modulo_inventario.models
             this._purchase_price = purchase_price;
         }
 
+        public Product(string name, string type, string unit, string code, double sales_price, double purchase_price, double min_qty, double max_qty)
+        {
+            this._name = name;
+            this._type = type;
+            this._unit = unit;
+            this._code = code;
+            this._sales_price = sales_price;
+            this._purchase_price = purchase_price;
+            this.Min_qty = min_qty;
+            this.Max_qty = max_qty;
+        }
+
         public Product(int id, string name, string type, string unit, string code, double sales_price, double purchase_price, double min_qty, double max_qty)
         {
             this._id = id;
@@ -80,13 +92,14 @@ namespace modulo_inventario.models
                         result -= line.Qty;
                     }
                 }
-                if (result >= this.Max_qty)
+        /*        if (result >= this.Max_qty)
                 {
-                    MessageBox.Show("El producto ha alcanzado la cantidad maxima en inventario, por favor no haga mas pedidos por el momento!");
-                }else if(result <= this.Min_qty)
-                {
-                    MessageBox.Show("El producto ha alcanzado la cantidad minima en inventario, por favor no haga un pedido a su proveedor!");
+                    MessageBox.Show($"El producto ha alcanzado la cantidad maxima en inventario: {this.Max_qty} {this.Unit}, por favor no haga mas pedidos por el momento!");
                 }
+                else if (result <= this.Min_qty)
+                {
+                    MessageBox.Show($"El producto ha alcanzado la cantidad minima en inventario: {this.Max_qty} {this.Unit}, por favor haga un pedido a su proveedor!");
+                }*/
                 return result;
             } 
         }
@@ -136,6 +149,7 @@ namespace modulo_inventario.models
                     reader.GetDouble(8)
                 );
             }
+            connection.Close();
             return product;
         }
 
@@ -161,22 +175,26 @@ namespace modulo_inventario.models
                 );
                 products.Add(product);
             }
+            connection.Close();
             return products.ToArray();
         }
 
-        public override void Create()
+        public override int Create()
         {
             NpgsqlConnection connection = Conection.get_connection();
-            string query = $"insert into {_table_name}(name, type, unit, code, sales_price, purchase_price, min_qty, max_max)" +
-                $"values({this.Name}, {this.Type}, {this.Unit}, {this.Code}, {this.Sales_price}, {this.Purchase_price}, {this.Min_qty}, {this.Max_qty});";
+            string query = $"insert into {_table_name}(name, type, unit, code, sales_price, purchase_price, min_qty, max_qty)" +
+                $" values('{this.Name}', '{this.Type}', '{this.Unit}', '{this.Code}', '{this.Sales_price}', '{this.Purchase_price}', '{this.Min_qty}', '{this.Max_qty}')" +
+                $" returning id;";
             using var command = new NpgsqlCommand(query, connection);
-            command.ExecuteNonQuery();
+            Object res = command.ExecuteScalar();
+            connection.Close();
+            return (int) res;
         }
 
         public static Product[] Search(string name)
         {
             NpgsqlConnection connection = Conection.get_connection();
-            string query = $"select * from {_table_name} where name = {name} or type = {name} or unit = {name} or code = {name};";
+            string query = $"select * from {_table_name} where name = '{name}' or type = '{name}' or unit = '{name}' or code = '{name}';";
             using var command = new NpgsqlCommand(query, connection);
             using NpgsqlDataReader reader = command.ExecuteReader();
             List<Product> products = new List<Product>();
@@ -195,6 +213,7 @@ namespace modulo_inventario.models
                 );
                 products.Add(product);
             }
+            connection.Close();
             return products.ToArray();
         }
 
@@ -204,16 +223,18 @@ namespace modulo_inventario.models
             string query = $"delete from {_table_name} where id = {this.Id};";
             using var command = new NpgsqlCommand(query, connection);
             command.ExecuteNonQuery();
+            connection.Close();
         }
 
         public override void Write()
         {
             NpgsqlConnection connection = Conection.get_connection();
             string query = $"update {_table_name}" +
-                $"set name = {this.Name}, type = {this.Type}, unit = {this.Unit}, code = {this.Code}, sales_price = {this.Sales_price}, purchase_price = {this.Purchase_price}, min_qty = {this.Min_qty}, max_qty = {this.Max_qty}" +
-                $"where id = {this.Id};";
+                $" set name = '{this.Name}', type = '{this.Type}', unit = '{this.Unit}', code = '{this.Code}', sales_price = {this.Sales_price}, purchase_price = {this.Purchase_price}, min_qty = {this.Min_qty}, max_qty = {this.Max_qty}" +
+                $" where id = {this.Id};";
             using var command = new NpgsqlCommand(query, connection);
             command.ExecuteNonQuery();
+            connection.Close();
         }
     }
 }

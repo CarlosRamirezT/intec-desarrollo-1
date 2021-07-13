@@ -25,13 +25,17 @@ namespace modulo_inventario
             LoadGrid(Moves.Browse());
         }
 
+        private void limpiarGrid()
+        {
+            dataGridView1.Rows.Clear();
+        }
+
         private void LoadGrid(Moves[] moves)
         {
-
-
+            limpiarGrid();
             for (int i = 0; i < moves.Length; i++)
             {
-                dataGridView1.Rows.Add(new object[] { moves[i].Id, moves[i].Contact, moves[i].Schedule_date, moves[i].Source_location, moves[i].Destination_location.Name, moves[i].Type });
+                dataGridView1.Rows.Add(new object[] { moves[i].Id, moves[i].Contact, moves[i].Schedule_date, moves[i].Source_location.Name, moves[i].Destination_location.Name, moves[i].Type });
             }
         }
 
@@ -57,7 +61,15 @@ namespace modulo_inventario
         private void buttonSearch_Click(object sender, EventArgs e)
         {
             string vBarra = textBoxSearchBar.Text.ToString();
-            Moves[] moves = Moves.Search(vBarra);
+            Moves[] moves;
+            if (vBarra != "")
+            {
+                moves = Moves.Search(vBarra);
+            }
+            else
+            {
+               moves = Moves.Browse();
+            }
             LoadGrid(moves);
         }
 
@@ -71,8 +83,6 @@ namespace modulo_inventario
                 MoveFormInformation vCreate = new MoveFormInformation(move);
                 vCreate.Show();
                 this.Visible = false;
-
-
             }
         }
     }

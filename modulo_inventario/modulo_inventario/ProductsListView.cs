@@ -17,11 +17,12 @@ namespace modulo_inventario
         {
             InitializeComponent();
             dataGridView1.Columns.Add("Id", "Id");
-            dataGridView1.Columns.Add("name", "name");
-            dataGridView1.Columns.Add("type", "type");
             dataGridView1.Columns.Add("code", "code");
+            dataGridView1.Columns.Add("name", "name");
+            dataGridView1.Columns.Add("type", "type");        
             dataGridView1.Columns.Add("Sales_Price", "Sales_Price");
-            dataGridView1.Columns.Add("purchase_price;", "purchase_price;");
+            dataGridView1.Columns.Add("purchase_price;", "purchase_price");
+            dataGridView1.Columns.Add("unit;", "Unit");
             llenargrid(Product.Browse());
         }
 
@@ -42,12 +43,18 @@ namespace modulo_inventario
                 this.Visible = false;
             }
         }
+
+        private void limpiarGrid()
+        {
+            dataGridView1.Rows.Clear();
+        }
+
         private void llenargrid(Product[] vy )
         {
-
+            limpiarGrid();
             for (int i = 0; i < vy.Length; i++)
             {
-                dataGridView1.Rows.Add(new object[] { vy[i].Id,vy[i].Name, vy[i].Type, vy[i].Code, vy[i].Sales_price, vy[i].Purchase_price});
+                dataGridView1.Rows.Add(new object[] { vy[i].Id, vy[i].Code, vy[i].Name, vy[i].Type, vy[i].Sales_price, vy[i].Purchase_price, vy[i].Unit});
             }
 
         }
@@ -68,7 +75,15 @@ namespace modulo_inventario
         private void btbuscar_Click(object sender, EventArgs e)
         {
             string vbuscar = txtnom.Text.ToString();
-            Product[] vpy = Product.Search(vbuscar);
+            Product[] vpy;
+            if (vbuscar == "")
+            {
+                vpy = Product.Browse();
+            }
+            else
+            {
+                vpy = Product.Search(vbuscar);
+            }
             llenargrid(vpy);
         }
     }

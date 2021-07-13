@@ -38,6 +38,9 @@ namespace modulo_inventario
             textBoxSalePrice.Text = product.Sales_price.ToString();
             labelCantidadAvailable.Text = product.Available_qty.ToString();
             labelCantidadForecasted.Text = product.Forecasted_qty.ToString();
+            textBoxUnit.Text = product.Unit;
+            textBoxMinQty.Text = product.Min_qty.ToString();
+            textBoxMaxQty.Text = product.Max_qty.ToString();
         }
 
         private void btsave_Click(object sender, EventArgs e)
@@ -45,11 +48,14 @@ namespace modulo_inventario
             Product newProduct = new Product(
                 textboxName.Text.ToString(),
                 textboxType.Text.ToString(),
+                textBoxUnit.Text,
                 textboxCodigo.Text.ToString(),
                 double.Parse(textBoxSalePrice.Text.ToString()),
-                double.Parse(textboxPurchasePrice.Text.ToString())
+                double.Parse(textboxPurchasePrice.Text.ToString()),
+                double.Parse(textBoxMinQty.Text.ToString()),
+                double.Parse(textBoxMaxQty.Text.ToString())
             );
-            if (product.Id >= 0)
+            if (product != null && product.Id >= 0)
             {
                 newProduct.Id = product.Id;
                 newProduct.Write();
@@ -59,6 +65,7 @@ namespace modulo_inventario
             }
             else
             {
+                newProduct.Create();
                 ProductsListView productsListView = new ProductsListView();
                 productsListView.Show();
                 this.Visible = false;
@@ -72,5 +79,9 @@ namespace modulo_inventario
             this.Visible = false;
         }
 
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

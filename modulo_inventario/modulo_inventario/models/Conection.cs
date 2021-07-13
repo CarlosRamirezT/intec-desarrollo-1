@@ -12,16 +12,15 @@ namespace modulo_inventario.models
         protected string _query;
         // variable para almacenar la referencia en memoria a la conexion establecido con la base de datos
         // se debe reiniciar en el constructor de cada clase que implemente esta clase abstracta
-        private static NpgsqlConnection _connection;
 
         public static NpgsqlConnection get_connection()
         {
-            if (_connection == null)
+            NpgsqlConnection connection = new NpgsqlConnection(CONNECTION_STRING);
+            if (connection.State == System.Data.ConnectionState.Closed)
             {
-               _connection = new NpgsqlConnection(CONNECTION_STRING);
-               _connection.Open();
+                connection.Open();
             }
-            return _connection;
+            return connection;
         }
 
         //protected NpgsqlCommand _command;
@@ -29,7 +28,7 @@ namespace modulo_inventario.models
         // metodos que se deben implementar en cada clase de tipo dao que implemente esta
 
         // este metodo inserta registros a la base de datos
-        public abstract void Create();
+        public abstract int Create();
         // este metodo actualizar registros a la base de datos
         public abstract void Write();
         // este metodo borrar registros de la base de datos

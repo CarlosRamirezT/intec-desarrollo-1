@@ -32,11 +32,13 @@ namespace modulo_inventario
             labelId.Text = product.Id.ToString();
             labelname.Text = product.Name;
             labelcodigo.Text = product.Code;
-            labelcantidaddisponible.Text = product.Available_qty.ToString();
-            labelcantidadesperada.Text = product.Forecasted_qty.ToString();
+            labelcantidaddisponible.Text = product.Available_qty.ToString() + " " + product.Unit;
+            labelcantidadesperada.Text = product.Forecasted_qty.ToString() + " " + product.Unit;
             labelprecioventa.Text = product.Sales_price.ToString();
             labelpreciocompra.Text = product.Purchase_price.ToString();
             labeltipo.Text = product.Type;
+            labelMinQty.Text = product.Min_qty.ToString() + " " + product.Unit;
+            labelMaxQty.Text = product.Max_qty.ToString() + " " + product.Unit;
         }
 
 

@@ -49,12 +49,18 @@ namespace modulo_inventario
             this.labelCantidadAvailable = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.labelCantidadForecasted = new System.Windows.Forms.Label();
+            this.textBoxUnit = new System.Windows.Forms.TextBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.textBoxMinQty = new System.Windows.Forms.TextBox();
+            this.textBoxMaxQty = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(64, 262);
+            this.label1.Location = new System.Drawing.Point(72, 211);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(124, 19);
@@ -65,7 +71,7 @@ namespace modulo_inventario
             // 
             this.label2.AccessibleRole = System.Windows.Forms.AccessibleRole.Equation;
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(418, 261);
+            this.label2.Location = new System.Drawing.Point(426, 210);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(112, 19);
@@ -75,7 +81,7 @@ namespace modulo_inventario
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(81, 338);
+            this.label3.Location = new System.Drawing.Point(89, 287);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(0, 19);
@@ -85,7 +91,7 @@ namespace modulo_inventario
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Times New Roman", 18F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point);
-            this.label4.Location = new System.Drawing.Point(64, 187);
+            this.label4.Location = new System.Drawing.Point(72, 136);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(229, 27);
@@ -95,7 +101,7 @@ namespace modulo_inventario
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(64, 319);
+            this.label5.Location = new System.Drawing.Point(72, 268);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(61, 19);
@@ -116,11 +122,12 @@ namespace modulo_inventario
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(445, 390);
+            this.label6.Location = new System.Drawing.Point(443, 335);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(146, 19);
             this.label6.TabIndex = 6;
+            this.label6.Tag = "0";
             this.label6.Text = "Cantidad Disponible:";
             // 
             // vFecha
@@ -145,7 +152,7 @@ namespace modulo_inventario
             // 
             // textboxCodigo
             // 
-            this.textboxCodigo.Location = new System.Drawing.Point(202, 315);
+            this.textboxCodigo.Location = new System.Drawing.Point(210, 264);
             this.textboxCodigo.Margin = new System.Windows.Forms.Padding(4);
             this.textboxCodigo.Name = "textboxCodigo";
             this.textboxCodigo.Size = new System.Drawing.Size(127, 26);
@@ -153,7 +160,7 @@ namespace modulo_inventario
             // 
             // textboxType
             // 
-            this.textboxType.Location = new System.Drawing.Point(202, 261);
+            this.textboxType.Location = new System.Drawing.Point(210, 210);
             this.textboxType.Margin = new System.Windows.Forms.Padding(4);
             this.textboxType.Name = "textboxType";
             this.textboxType.Size = new System.Drawing.Size(127, 26);
@@ -161,7 +168,7 @@ namespace modulo_inventario
             // 
             // textboxPurchasePrice
             // 
-            this.textboxPurchasePrice.Location = new System.Drawing.Point(538, 259);
+            this.textboxPurchasePrice.Location = new System.Drawing.Point(546, 208);
             this.textboxPurchasePrice.Margin = new System.Windows.Forms.Padding(4);
             this.textboxPurchasePrice.Name = "textboxPurchasePrice";
             this.textboxPurchasePrice.Size = new System.Drawing.Size(134, 26);
@@ -169,7 +176,7 @@ namespace modulo_inventario
             // 
             // textboxName
             // 
-            this.textboxName.Location = new System.Drawing.Point(316, 190);
+            this.textboxName.Location = new System.Drawing.Point(324, 139);
             this.textboxName.Margin = new System.Windows.Forms.Padding(4);
             this.textboxName.Name = "textboxName";
             this.textboxName.Size = new System.Drawing.Size(204, 26);
@@ -198,7 +205,7 @@ namespace modulo_inventario
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(435, 319);
+            this.label8.Location = new System.Drawing.Point(443, 268);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(95, 19);
             this.label8.TabIndex = 19;
@@ -206,7 +213,7 @@ namespace modulo_inventario
             // 
             // textBoxSalePrice
             // 
-            this.textBoxSalePrice.Location = new System.Drawing.Point(538, 319);
+            this.textBoxSalePrice.Location = new System.Drawing.Point(546, 268);
             this.textBoxSalePrice.Name = "textBoxSalePrice";
             this.textBoxSalePrice.Size = new System.Drawing.Size(134, 26);
             this.textBoxSalePrice.TabIndex = 20;
@@ -214,16 +221,16 @@ namespace modulo_inventario
             // labelCantidadAvailable
             // 
             this.labelCantidadAvailable.AutoSize = true;
-            this.labelCantidadAvailable.Location = new System.Drawing.Point(598, 390);
+            this.labelCantidadAvailable.Location = new System.Drawing.Point(596, 335);
             this.labelCantidadAvailable.Name = "labelCantidadAvailable";
-            this.labelCantidadAvailable.Size = new System.Drawing.Size(48, 19);
+            this.labelCantidadAvailable.Size = new System.Drawing.Size(17, 19);
             this.labelCantidadAvailable.TabIndex = 21;
-            this.labelCantidadAvailable.Text = "label7";
+            this.labelCantidadAvailable.Text = "0";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(445, 418);
+            this.label9.Location = new System.Drawing.Point(443, 363);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(139, 19);
             this.label9.TabIndex = 22;
@@ -232,17 +239,73 @@ namespace modulo_inventario
             // labelCantidadForecasted
             // 
             this.labelCantidadForecasted.AutoSize = true;
-            this.labelCantidadForecasted.Location = new System.Drawing.Point(598, 421);
+            this.labelCantidadForecasted.Location = new System.Drawing.Point(596, 366);
             this.labelCantidadForecasted.Name = "labelCantidadForecasted";
-            this.labelCantidadForecasted.Size = new System.Drawing.Size(48, 19);
+            this.labelCantidadForecasted.Size = new System.Drawing.Size(17, 19);
             this.labelCantidadForecasted.TabIndex = 23;
-            this.labelCantidadForecasted.Text = "label7";
+            this.labelCantidadForecasted.Tag = "0";
+            this.labelCantidadForecasted.Text = "0";
+            // 
+            // textBoxUnit
+            // 
+            this.textBoxUnit.Location = new System.Drawing.Point(210, 310);
+            this.textBoxUnit.Name = "textBoxUnit";
+            this.textBoxUnit.Size = new System.Drawing.Size(127, 26);
+            this.textBoxUnit.TabIndex = 24;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(72, 320);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(62, 19);
+            this.label7.TabIndex = 25;
+            this.label7.Text = "Unidad:";
+            this.label7.Click += new System.EventHandler(this.label7_Click);
+            // 
+            // textBoxMinQty
+            // 
+            this.textBoxMinQty.Location = new System.Drawing.Point(210, 357);
+            this.textBoxMinQty.Name = "textBoxMinQty";
+            this.textBoxMinQty.Size = new System.Drawing.Size(127, 26);
+            this.textBoxMinQty.TabIndex = 26;
+            // 
+            // textBoxMaxQty
+            // 
+            this.textBoxMaxQty.Location = new System.Drawing.Point(210, 401);
+            this.textBoxMaxQty.Name = "textBoxMaxQty";
+            this.textBoxMaxQty.Size = new System.Drawing.Size(127, 26);
+            this.textBoxMaxQty.TabIndex = 27;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(72, 367);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(83, 19);
+            this.label10.TabIndex = 28;
+            this.label10.Text = "Cant. Min.:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(72, 401);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(87, 19);
+            this.label11.TabIndex = 29;
+            this.label11.Text = "Cant. Max.:";
             // 
             // vatras
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 19F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(725, 490);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.textBoxMaxQty);
+            this.Controls.Add(this.textBoxMinQty);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.textBoxUnit);
             this.Controls.Add(this.labelCantidadForecasted);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.labelCantidadAvailable);
@@ -293,5 +356,11 @@ namespace modulo_inventario
         private System.Windows.Forms.Label labelCantidadAvailable;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label labelCantidadForecasted;
+        private System.Windows.Forms.TextBox textBoxUnit;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.TextBox textBoxMinQty;
+        private System.Windows.Forms.TextBox textBoxMaxQty;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label11;
     }
 }

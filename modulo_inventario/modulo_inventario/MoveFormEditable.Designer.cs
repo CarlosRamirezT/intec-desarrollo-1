@@ -42,10 +42,12 @@ namespace modulo_inventario
             this.textBoxID = new System.Windows.Forms.TextBox();
             this.textBoxContacto = new System.Windows.Forms.TextBox();
             this.textBoxDireccion = new System.Windows.Forms.TextBox();
-            this.textBoxTipo = new System.Windows.Forms.TextBox();
-            this.textBoxOrigen = new System.Windows.Forms.TextBox();
-            this.textBoxDestino = new System.Windows.Forms.TextBox();
             this.textBoxFecha = new System.Windows.Forms.TextBox();
+            this.comboBoxType = new System.Windows.Forms.ComboBox();
+            this.comboBoxSource = new System.Windows.Forms.ComboBox();
+            this.comboBoxDestination = new System.Windows.Forms.ComboBox();
+            this.comboBoxState = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -71,17 +73,19 @@ namespace modulo_inventario
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(28, 208);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(743, 150);
+            this.dataGridView1.Size = new System.Drawing.Size(743, 230);
             this.dataGridView1.TabIndex = 2;
             // 
             // labelID
             // 
             this.labelID.AutoSize = true;
-            this.labelID.Location = new System.Drawing.Point(52, 65);
+            this.labelID.Location = new System.Drawing.Point(85, 65);
             this.labelID.Name = "labelID";
             this.labelID.Size = new System.Drawing.Size(18, 15);
             this.labelID.TabIndex = 3;
@@ -109,7 +113,7 @@ namespace modulo_inventario
             // labelTipo
             // 
             this.labelTipo.AutoSize = true;
-            this.labelTipo.Location = new System.Drawing.Point(318, 65);
+            this.labelTipo.Location = new System.Drawing.Point(304, 62);
             this.labelTipo.Name = "labelTipo";
             this.labelTipo.Size = new System.Drawing.Size(30, 15);
             this.labelTipo.TabIndex = 6;
@@ -118,7 +122,7 @@ namespace modulo_inventario
             // labelOrigen
             // 
             this.labelOrigen.AutoSize = true;
-            this.labelOrigen.Location = new System.Drawing.Point(318, 123);
+            this.labelOrigen.Location = new System.Drawing.Point(291, 123);
             this.labelOrigen.Name = "labelOrigen";
             this.labelOrigen.Size = new System.Drawing.Size(43, 15);
             this.labelOrigen.TabIndex = 7;
@@ -127,7 +131,7 @@ namespace modulo_inventario
             // labelDestino
             // 
             this.labelDestino.AutoSize = true;
-            this.labelDestino.Location = new System.Drawing.Point(318, 180);
+            this.labelDestino.Location = new System.Drawing.Point(287, 172);
             this.labelDestino.Name = "labelDestino";
             this.labelDestino.Size = new System.Drawing.Size(47, 15);
             this.labelDestino.TabIndex = 8;
@@ -136,7 +140,7 @@ namespace modulo_inventario
             // labelFecha
             // 
             this.labelFecha.AutoSize = true;
-            this.labelFecha.Location = new System.Drawing.Point(529, 65);
+            this.labelFecha.Location = new System.Drawing.Point(565, 118);
             this.labelFecha.Name = "labelFecha";
             this.labelFecha.Size = new System.Drawing.Size(38, 15);
             this.labelFecha.TabIndex = 9;
@@ -147,6 +151,8 @@ namespace modulo_inventario
             // 
             this.textBoxID.Location = new System.Drawing.Point(134, 62);
             this.textBoxID.Name = "textBoxID";
+            this.textBoxID.ReadOnly = true;
+            this.textBoxID.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.textBoxID.Size = new System.Drawing.Size(100, 23);
             this.textBoxID.TabIndex = 10;
             // 
@@ -164,43 +170,65 @@ namespace modulo_inventario
             this.textBoxDireccion.Size = new System.Drawing.Size(100, 23);
             this.textBoxDireccion.TabIndex = 12;
             // 
-            // textBoxTipo
-            // 
-            this.textBoxTipo.Location = new System.Drawing.Point(392, 62);
-            this.textBoxTipo.Name = "textBoxTipo";
-            this.textBoxTipo.Size = new System.Drawing.Size(100, 23);
-            this.textBoxTipo.TabIndex = 13;
-            // 
-            // textBoxOrigen
-            // 
-            this.textBoxOrigen.Location = new System.Drawing.Point(392, 120);
-            this.textBoxOrigen.Name = "textBoxOrigen";
-            this.textBoxOrigen.Size = new System.Drawing.Size(100, 23);
-            this.textBoxOrigen.TabIndex = 14;
-            // 
-            // textBoxDestino
-            // 
-            this.textBoxDestino.Location = new System.Drawing.Point(392, 170);
-            this.textBoxDestino.Name = "textBoxDestino";
-            this.textBoxDestino.Size = new System.Drawing.Size(100, 23);
-            this.textBoxDestino.TabIndex = 15;
-            // 
             // textBoxFecha
             // 
-            this.textBoxFecha.Location = new System.Drawing.Point(608, 62);
+            this.textBoxFecha.Location = new System.Drawing.Point(609, 115);
             this.textBoxFecha.Name = "textBoxFecha";
-            this.textBoxFecha.Size = new System.Drawing.Size(100, 23);
+            this.textBoxFecha.Size = new System.Drawing.Size(127, 23);
             this.textBoxFecha.TabIndex = 16;
+            // 
+            // comboBoxType
+            // 
+            this.comboBoxType.FormattingEnabled = true;
+            this.comboBoxType.Location = new System.Drawing.Point(346, 62);
+            this.comboBoxType.Name = "comboBoxType";
+            this.comboBoxType.Size = new System.Drawing.Size(165, 23);
+            this.comboBoxType.TabIndex = 17;
+            // 
+            // comboBoxSource
+            // 
+            this.comboBoxSource.FormattingEnabled = true;
+            this.comboBoxSource.Location = new System.Drawing.Point(346, 119);
+            this.comboBoxSource.Name = "comboBoxSource";
+            this.comboBoxSource.Size = new System.Drawing.Size(165, 23);
+            this.comboBoxSource.TabIndex = 18;
+            // 
+            // comboBoxDestination
+            // 
+            this.comboBoxDestination.FormattingEnabled = true;
+            this.comboBoxDestination.Location = new System.Drawing.Point(346, 169);
+            this.comboBoxDestination.Name = "comboBoxDestination";
+            this.comboBoxDestination.Size = new System.Drawing.Size(165, 23);
+            this.comboBoxDestination.TabIndex = 19;
+            // 
+            // comboBoxState
+            // 
+            this.comboBoxState.FormattingEnabled = true;
+            this.comboBoxState.Location = new System.Drawing.Point(609, 65);
+            this.comboBoxState.Name = "comboBoxState";
+            this.comboBoxState.Size = new System.Drawing.Size(127, 23);
+            this.comboBoxState.TabIndex = 20;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(565, 65);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(33, 15);
+            this.label1.TabIndex = 21;
+            this.label1.Text = "State";
             // 
             // MoveFormEditable
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.comboBoxState);
+            this.Controls.Add(this.comboBoxDestination);
+            this.Controls.Add(this.comboBoxSource);
+            this.Controls.Add(this.comboBoxType);
             this.Controls.Add(this.textBoxFecha);
-            this.Controls.Add(this.textBoxDestino);
-            this.Controls.Add(this.textBoxOrigen);
-            this.Controls.Add(this.textBoxTipo);
             this.Controls.Add(this.textBoxDireccion);
             this.Controls.Add(this.textBoxContacto);
             this.Controls.Add(this.textBoxID);
@@ -237,9 +265,11 @@ namespace modulo_inventario
         private System.Windows.Forms.TextBox textBoxID;
         private System.Windows.Forms.TextBox textBoxContacto;
         private System.Windows.Forms.TextBox textBoxDireccion;
-        private System.Windows.Forms.TextBox textBoxTipo;
-        private System.Windows.Forms.TextBox textBoxOrigen;
-        private System.Windows.Forms.TextBox textBoxDestino;
         private System.Windows.Forms.TextBox textBoxFecha;
+        private System.Windows.Forms.ComboBox comboBoxType;
+        private System.Windows.Forms.ComboBox comboBoxSource;
+        private System.Windows.Forms.ComboBox comboBoxDestination;
+        private System.Windows.Forms.ComboBox comboBoxState;
+        private System.Windows.Forms.Label label1;
     }
 }
