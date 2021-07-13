@@ -29,9 +29,10 @@ create table moves(
 	source_location_id int not null,
 	destination_location_id int not null,
 	schedule_date date not null default current_date,
+	state varchar(40) not null,
 	primary key(id),
-	constraint fk_source_location_id foreign key (source_location_id) references locations(id),
-	constraint fk_destination_location_id foreign key (destination_location_id) references locations(id)
+	constraint fk_source_location_id foreign key (source_location_id) references locations(id) on delete cascade,
+	constraint fk_destination_location_id foreign key (destination_location_id) references locations(id) on delete cascade
 );
 
 drop table if exists move_lines;
@@ -43,11 +44,12 @@ create table move_lines(
 	type varchar(40) not null,
 	source_location_id int not null,
 	destination_location_id int not null,
+	state varchar(40) not null,
 	primary key(id),
-	constraint fk_move_id foreign key (move_id) references moves(id),
-	constraint fk_product_id foreign key (product_id) references products(id),
-	constraint fk_source_location_id foreign key (source_location_id) references locations(id),
-	constraint fk_destination_location_id foreign key (destination_location_id) references locations(id)
+	constraint fk_move_id foreign key (move_id) references moves(id) on delete cascade,
+	constraint fk_product_id foreign key (product_id) references products(id) on delete cascade,
+	constraint fk_source_location_id foreign key (source_location_id) references locations(id) on delete cascade,
+	constraint fk_destination_location_id foreign key (destination_location_id) references locations(id) on delete cascade
 );
 
 insert into products(name, type, unit, code, sales_price, purchase_price, min_qty, max_qty) 
@@ -70,19 +72,19 @@ values('Customer Location', 'Customer');
 insert into locations(name, type)
 values('Supplier Location', 'Supplier');
 
-insert into moves(contact, contact_address, type, source_location_id, destination_location_id) 
-values('Carlos Ramirez', 'Santo Domingo', 'receipt', 4, 2);
-insert into moves(contact, contact_address, type, source_location_id, destination_location_id) 
-values('Carlos Ramirez', 'Santo Domingo', 'internal', 2, 1);
-insert into moves(contact, contact_address, type, source_location_id, destination_location_id) 
-values('Carlos Ramirez', 'Santo Domingo', 'customer', 1, 3);
+insert into moves(contact, contact_address, type, source_location_id, destination_location_id, state) 
+values('Carlos Ramirez', 'Santo Domingo', 'receipt', 4, 2, 'done');
+insert into moves(contact, contact_address, type, source_location_id, destination_location_id, state) 
+values('Carlos Ramirez', 'Santo Domingo', 'internal', 2, 1, 'done');
+insert into moves(contact, contact_address, type, source_location_id, destination_location_id, state) 
+values('Carlos Ramirez', 'Santo Domingo', 'customer', 1, 3, 'done');
 
-insert into move_lines(move_id, product_id, qty, type, source_location_id, destination_location_id)
-values(1, 1, 2.00, 'receipt', 4, 2);
-insert into move_lines(move_id, product_id, qty, type, source_location_id, destination_location_id)
-values(2, 2, 5.00, 'internal', 2, 1);
-insert into move_lines(move_id, product_id, qty, type, source_location_id, destination_location_id)
-values(3, 3, 3.00, 'customer', 1, 2);
+insert into move_lines(move_id, product_id, qty, type, source_location_id, destination_location_id, state)
+values(1, 1, 2.00, 'receipt', 4, 2, 'done');
+insert into move_lines(move_id, product_id, qty, type, source_location_id, destination_location_id, state)
+values(2, 2, 5.00, 'internal', 2, 1, 'done');
+insert into move_lines(move_id, product_id, qty, type, source_location_id, destination_location_id, state)
+values(3, 3, 3.00, 'customer', 1, 2, 'done');
 
 select * from products;
 select * from locations;
