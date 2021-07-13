@@ -29,6 +29,7 @@ namespace modulo_inventario
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MoveFormInformation));
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.buttonExit = new System.Windows.Forms.Button();
             this.buttonEdit = new System.Windows.Forms.Button();
@@ -58,18 +59,24 @@ namespace modulo_inventario
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.AutoSizeRowsMode = System.Windows.Forms.DataGridViewAutoSizeRowsMode.AllCells;
+            this.dataGridView1.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(54)))), ((int)(((byte)(56)))), ((int)(((byte)(69)))));
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(10, 225);
+            this.dataGridView1.Location = new System.Drawing.Point(13, 270);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowTemplate.Height = 25;
-            this.dataGridView1.Size = new System.Drawing.Size(778, 213);
+            this.dataGridView1.Size = new System.Drawing.Size(1000, 256);
             this.dataGridView1.TabIndex = 1;
             // 
             // buttonExit
             // 
-            this.buttonExit.Location = new System.Drawing.Point(713, 12);
+            this.buttonExit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonExit.Image = ((System.Drawing.Image)(resources.GetObject("buttonExit.Image")));
+            this.buttonExit.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.buttonExit.Location = new System.Drawing.Point(892, 14);
+            this.buttonExit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonExit.Name = "buttonExit";
-            this.buttonExit.Size = new System.Drawing.Size(75, 23);
+            this.buttonExit.Size = new System.Drawing.Size(121, 59);
             this.buttonExit.TabIndex = 2;
             this.buttonExit.Text = "Exit";
             this.buttonExit.UseVisualStyleBackColor = true;
@@ -77,172 +84,199 @@ namespace modulo_inventario
             // 
             // buttonEdit
             // 
-            this.buttonEdit.Location = new System.Drawing.Point(28, 21);
+            this.buttonEdit.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonEdit.Image = ((System.Drawing.Image)(resources.GetObject("buttonEdit.Image")));
+            this.buttonEdit.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonEdit.Location = new System.Drawing.Point(13, 14);
+            this.buttonEdit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonEdit.Name = "buttonEdit";
-            this.buttonEdit.Size = new System.Drawing.Size(75, 23);
+            this.buttonEdit.Size = new System.Drawing.Size(101, 59);
             this.buttonEdit.TabIndex = 3;
             this.buttonEdit.Text = "Edit";
+            this.buttonEdit.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonEdit.UseVisualStyleBackColor = true;
             this.buttonEdit.Click += new System.EventHandler(this.buttonEdit_Click);
             // 
             // labelNombre
             // 
             this.labelNombre.AutoSize = true;
-            this.labelNombre.Location = new System.Drawing.Point(29, 73);
+            this.labelNombre.Location = new System.Drawing.Point(37, 88);
+            this.labelNombre.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelNombre.Name = "labelNombre";
-            this.labelNombre.Size = new System.Drawing.Size(18, 15);
+            this.labelNombre.Size = new System.Drawing.Size(22, 18);
             this.labelNombre.TabIndex = 4;
             this.labelNombre.Text = "ID";
             // 
             // labelNombreContent
             // 
             this.labelNombreContent.AutoSize = true;
-            this.labelNombreContent.Location = new System.Drawing.Point(140, 72);
+            this.labelNombreContent.Location = new System.Drawing.Point(180, 86);
+            this.labelNombreContent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelNombreContent.Name = "labelNombreContent";
-            this.labelNombreContent.Size = new System.Drawing.Size(13, 15);
+            this.labelNombreContent.Size = new System.Drawing.Size(16, 18);
             this.labelNombreContent.TabIndex = 5;
             this.labelNombreContent.Text = "0";
             // 
             // labelContacto
             // 
             this.labelContacto.AutoSize = true;
-            this.labelContacto.Location = new System.Drawing.Point(29, 120);
+            this.labelContacto.Location = new System.Drawing.Point(37, 144);
+            this.labelContacto.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelContacto.Name = "labelContacto";
-            this.labelContacto.Size = new System.Drawing.Size(56, 15);
+            this.labelContacto.Size = new System.Drawing.Size(69, 18);
             this.labelContacto.TabIndex = 6;
             this.labelContacto.Text = "Contacto";
             // 
             // labelContactoContent
             // 
             this.labelContactoContent.AutoSize = true;
-            this.labelContactoContent.Location = new System.Drawing.Point(140, 120);
+            this.labelContactoContent.Location = new System.Drawing.Point(180, 144);
+            this.labelContactoContent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelContactoContent.Name = "labelContactoContent";
-            this.labelContactoContent.Size = new System.Drawing.Size(38, 15);
+            this.labelContactoContent.Size = new System.Drawing.Size(46, 18);
             this.labelContactoContent.TabIndex = 7;
             this.labelContactoContent.Text = "label4";
             // 
             // LabelDireccion
             // 
             this.LabelDireccion.AutoSize = true;
-            this.LabelDireccion.Location = new System.Drawing.Point(28, 169);
+            this.LabelDireccion.Location = new System.Drawing.Point(36, 203);
+            this.LabelDireccion.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.LabelDireccion.Name = "LabelDireccion";
-            this.LabelDireccion.Size = new System.Drawing.Size(57, 15);
+            this.LabelDireccion.Size = new System.Drawing.Size(71, 18);
             this.LabelDireccion.TabIndex = 8;
             this.LabelDireccion.Text = "Dirección";
             // 
             // labelDireccionContent
             // 
             this.labelDireccionContent.AutoSize = true;
-            this.labelDireccionContent.Location = new System.Drawing.Point(140, 169);
+            this.labelDireccionContent.Location = new System.Drawing.Point(180, 203);
+            this.labelDireccionContent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelDireccionContent.Name = "labelDireccionContent";
-            this.labelDireccionContent.Size = new System.Drawing.Size(38, 15);
+            this.labelDireccionContent.Size = new System.Drawing.Size(46, 18);
             this.labelDireccionContent.TabIndex = 9;
             this.labelDireccionContent.Text = "label2";
             // 
             // labelTipo
             // 
             this.labelTipo.AutoSize = true;
-            this.labelTipo.Location = new System.Drawing.Point(335, 72);
+            this.labelTipo.Location = new System.Drawing.Point(431, 86);
+            this.labelTipo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelTipo.Name = "labelTipo";
-            this.labelTipo.Size = new System.Drawing.Size(30, 15);
+            this.labelTipo.Size = new System.Drawing.Size(37, 18);
             this.labelTipo.TabIndex = 10;
             this.labelTipo.Text = "Tipo";
             // 
             // labelTipoContent
             // 
             this.labelTipoContent.AutoSize = true;
-            this.labelTipoContent.Location = new System.Drawing.Point(477, 71);
+            this.labelTipoContent.Location = new System.Drawing.Point(613, 85);
+            this.labelTipoContent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelTipoContent.Name = "labelTipoContent";
-            this.labelTipoContent.Size = new System.Drawing.Size(38, 15);
+            this.labelTipoContent.Size = new System.Drawing.Size(46, 18);
             this.labelTipoContent.TabIndex = 11;
             this.labelTipoContent.Text = "label4";
             // 
             // labelOrigen
             // 
             this.labelOrigen.AutoSize = true;
-            this.labelOrigen.Location = new System.Drawing.Point(335, 120);
+            this.labelOrigen.Location = new System.Drawing.Point(431, 144);
+            this.labelOrigen.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelOrigen.Name = "labelOrigen";
-            this.labelOrigen.Size = new System.Drawing.Size(43, 15);
+            this.labelOrigen.Size = new System.Drawing.Size(52, 18);
             this.labelOrigen.TabIndex = 12;
             this.labelOrigen.Text = "Origen";
             // 
             // labelOrigenContent
             // 
             this.labelOrigenContent.AutoSize = true;
-            this.labelOrigenContent.Location = new System.Drawing.Point(477, 120);
+            this.labelOrigenContent.Location = new System.Drawing.Point(613, 144);
+            this.labelOrigenContent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelOrigenContent.Name = "labelOrigenContent";
-            this.labelOrigenContent.Size = new System.Drawing.Size(38, 15);
+            this.labelOrigenContent.Size = new System.Drawing.Size(46, 18);
             this.labelOrigenContent.TabIndex = 13;
             this.labelOrigenContent.Text = "label2";
             // 
             // labelDestino
             // 
             this.labelDestino.AutoSize = true;
-            this.labelDestino.Location = new System.Drawing.Point(335, 169);
+            this.labelDestino.Location = new System.Drawing.Point(431, 203);
+            this.labelDestino.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelDestino.Name = "labelDestino";
-            this.labelDestino.Size = new System.Drawing.Size(47, 15);
+            this.labelDestino.Size = new System.Drawing.Size(59, 18);
             this.labelDestino.TabIndex = 14;
             this.labelDestino.Text = "Destino";
             // 
             // labelDestinoContent
             // 
             this.labelDestinoContent.AutoSize = true;
-            this.labelDestinoContent.Location = new System.Drawing.Point(477, 169);
+            this.labelDestinoContent.Location = new System.Drawing.Point(613, 203);
+            this.labelDestinoContent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelDestinoContent.Name = "labelDestinoContent";
-            this.labelDestinoContent.Size = new System.Drawing.Size(38, 15);
+            this.labelDestinoContent.Size = new System.Drawing.Size(46, 18);
             this.labelDestinoContent.TabIndex = 15;
             this.labelDestinoContent.Text = "label4";
             // 
             // labelFecha
             // 
             this.labelFecha.AutoSize = true;
-            this.labelFecha.Location = new System.Drawing.Point(335, 29);
+            this.labelFecha.Location = new System.Drawing.Point(766, 122);
+            this.labelFecha.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelFecha.Name = "labelFecha";
-            this.labelFecha.Size = new System.Drawing.Size(38, 15);
+            this.labelFecha.Size = new System.Drawing.Size(49, 18);
             this.labelFecha.TabIndex = 16;
             this.labelFecha.Text = "Fecha";
             // 
             // labelFechaContent
             // 
             this.labelFechaContent.AutoSize = true;
-            this.labelFechaContent.Location = new System.Drawing.Point(416, 29);
+            this.labelFechaContent.Location = new System.Drawing.Point(870, 122);
+            this.labelFechaContent.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelFechaContent.Name = "labelFechaContent";
-            this.labelFechaContent.Size = new System.Drawing.Size(38, 15);
+            this.labelFechaContent.Size = new System.Drawing.Size(46, 18);
             this.labelFechaContent.TabIndex = 17;
             this.labelFechaContent.Text = "label2";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(596, 73);
+            this.label1.Location = new System.Drawing.Point(766, 88);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(45, 15);
+            this.label1.Size = new System.Drawing.Size(59, 18);
             this.label1.TabIndex = 18;
             this.label1.Text = "Estado:";
             // 
             // labelStatus
             // 
             this.labelStatus.AutoSize = true;
-            this.labelStatus.Location = new System.Drawing.Point(653, 73);
+            this.labelStatus.Location = new System.Drawing.Point(840, 88);
+            this.labelStatus.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.labelStatus.Name = "labelStatus";
-            this.labelStatus.Size = new System.Drawing.Size(0, 15);
+            this.labelStatus.Size = new System.Drawing.Size(0, 18);
             this.labelStatus.TabIndex = 19;
             // 
             // buttonDelete
             // 
-            this.buttonDelete.Location = new System.Drawing.Point(119, 21);
+            this.buttonDelete.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.buttonDelete.Image = ((System.Drawing.Image)(resources.GetObject("buttonDelete.Image")));
+            this.buttonDelete.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonDelete.Location = new System.Drawing.Point(130, 14);
+            this.buttonDelete.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonDelete.Name = "buttonDelete";
-            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonDelete.Size = new System.Drawing.Size(117, 59);
             this.buttonDelete.TabIndex = 20;
             this.buttonDelete.Text = "Delete";
+            this.buttonDelete.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.buttonDelete.UseVisualStyleBackColor = true;
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // MoveFormInformation
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(70)))), ((int)(((byte)(70)))), ((int)(((byte)(82)))));
+            this.ClientSize = new System.Drawing.Size(1029, 540);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.label1);
@@ -263,6 +297,9 @@ namespace modulo_inventario
             this.Controls.Add(this.buttonEdit);
             this.Controls.Add(this.buttonExit);
             this.Controls.Add(this.dataGridView1);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ForeColor = System.Drawing.Color.Gainsboro;
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MoveFormInformation";
             this.Text = "MoveFormInformation";
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
