@@ -48,6 +48,7 @@ namespace modulo_inventario
             this.labelFechaContent = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.labelStatus = new System.Windows.Forms.Label();
+            this.buttonDelete = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -227,11 +228,22 @@ namespace modulo_inventario
             this.labelStatus.Size = new System.Drawing.Size(0, 15);
             this.labelStatus.TabIndex = 19;
             // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Location = new System.Drawing.Point(119, 21);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonDelete.TabIndex = 20;
+            this.buttonDelete.Text = "Delete";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
             // MoveFormInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.labelFechaContent);
@@ -279,5 +291,6 @@ namespace modulo_inventario
         private System.Windows.Forms.Label labelFechaContent;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label labelStatus;
+        private System.Windows.Forms.Button buttonDelete;
     }
 }

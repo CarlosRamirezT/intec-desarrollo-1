@@ -46,5 +46,13 @@ namespace modulo_inventario
             locationListView.Show();
             this.Visible = false;
         }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            this.location.Unlink();
+            LocationListView locationListView = new LocationListView();
+            locationListView.Show();
+            this.Visible = false;
+        }
     }
 }

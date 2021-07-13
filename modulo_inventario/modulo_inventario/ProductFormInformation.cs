@@ -62,5 +62,13 @@ namespace modulo_inventario
             vtr.Show();
             this.Visible = false;
         }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            this.product.Unlink();
+            ProductsListView vl = new ProductsListView();
+            vl.Show();
+            this.Visible = false;
+        }
     }
 }

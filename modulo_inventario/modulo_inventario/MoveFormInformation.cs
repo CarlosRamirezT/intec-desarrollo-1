@@ -94,5 +94,13 @@ namespace modulo_inventario
             moveFormView.Show();
             this.Visible = false;
         }
+
+        private void buttonDelete_Click(object sender, EventArgs e)
+        {
+            this.vInformation.Unlink();
+            MoveFormView moveFormView = new MoveFormView();
+            moveFormView.Show();
+            this.Visible = false;
+        }
     }
 }

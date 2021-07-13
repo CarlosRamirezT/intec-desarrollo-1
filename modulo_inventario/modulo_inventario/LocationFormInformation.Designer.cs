@@ -37,6 +37,7 @@ namespace modulo_inventario
             this.labelNameContent = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.labelType = new System.Windows.Forms.Label();
+            this.buttonDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonEdit
@@ -113,11 +114,22 @@ namespace modulo_inventario
             this.labelType.TabIndex = 7;
             this.labelType.Text = "label3";
             // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Location = new System.Drawing.Point(127, 44);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonDelete.TabIndex = 8;
+            this.buttonDelete.Text = "Eliminar";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
             // LocationFormInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.labelType);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.labelNameContent);
@@ -143,5 +155,6 @@ namespace modulo_inventario
         private System.Windows.Forms.Label labelNameContent;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label labelType;
+        private System.Windows.Forms.Button buttonDelete;
     }
 }

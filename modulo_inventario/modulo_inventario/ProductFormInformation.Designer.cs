@@ -52,6 +52,7 @@ namespace modulo_inventario
             this.label11 = new System.Windows.Forms.Label();
             this.labelMinQty = new System.Windows.Forms.Label();
             this.labelMaxQty = new System.Windows.Forms.Label();
+            this.buttonDelete = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // button2
@@ -262,11 +263,22 @@ namespace modulo_inventario
             this.labelMaxQty.TabIndex = 24;
             this.labelMaxQty.Text = "0";
             // 
+            // buttonDelete
+            // 
+            this.buttonDelete.Location = new System.Drawing.Point(116, 44);
+            this.buttonDelete.Name = "buttonDelete";
+            this.buttonDelete.Size = new System.Drawing.Size(75, 23);
+            this.buttonDelete.TabIndex = 25;
+            this.buttonDelete.Text = "Eliminar";
+            this.buttonDelete.UseVisualStyleBackColor = true;
+            this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
+            // 
             // ProductFormInformation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.labelMaxQty);
             this.Controls.Add(this.labelMinQty);
             this.Controls.Add(this.label11);
@@ -321,5 +333,6 @@ namespace modulo_inventario
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label labelMinQty;
         private System.Windows.Forms.Label labelMaxQty;
+        private System.Windows.Forms.Button buttonDelete;
     }
 }
